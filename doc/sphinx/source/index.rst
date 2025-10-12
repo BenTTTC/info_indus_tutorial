@@ -5,6 +5,8 @@
 
 info_indus_tutorial documentation
 =================================
+Bienvenue dans la documentation du projet **info_indus_tutorial**.  
+Ceci est un test avant de pousser les modifications sur GitHub.
 
 Add your content using ``reStructuredText`` syntax. See the
 `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
