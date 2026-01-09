@@ -153,5 +153,5 @@ Le lien du site se trouve généralement dans la section "Deployments" en bas à
    **Le site ne change pas ?**
    Les navigateurs gardent l'ancienne version en mémoire ("Cache").
    Pour être sûr de voir vos modifications, ouvrez le lien en **Navigation Privée** (``Ctrl + Maj + N``) ou forcez l'actualisation (``Ctrl + F5``).
-.. rubric:: Bravo 
+.. rubric:: Bravo !!!!!
 
