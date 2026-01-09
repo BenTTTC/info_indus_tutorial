@@ -11,8 +11,26 @@ Pour créer sa documentation, M.Yguel a déjà fait un tutoriel :
 
 Contribuer à un projet existant
 -------------------------------
-Si c'est votre projet dans ce cas là vous pouvez directement passer à l'étape 2 ! 
-Si vous voulez modifier un projet existant, il faut d'abord récupérer le projet.
+Si vous voulez modifier un projet existant, suivez les étapes ci-dessous.
+
+0. Prérequis : Configuration et Token
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Avant toute chose, configurez votre identité dans le terminal (à faire une seule fois) :
+
+.. code-block:: bash
+
+   git config --global user.name "Votre Pseudo GitHub"
+   git config --global user.email "votre-email@exemple.com"
+
+**Important : Le mot de passe est un Token**
+GitHub n'accepte plus votre mot de passe de compte habituel pour les commandes dans le terminal. Il faut utiliser un **Personal Access Token (Classic)**.
+Si vous ne l'avez pas, générez-le sur le site GitHub (*Settings > Developer settings > Tokens (classic)*) en cochant la case **repo**.
+
+.. warning::
+   Au moment d'envoyer vos fichiers (push), quand le terminal affichera :
+   ``Password for 'https://github.com':``
+   
+   C'est ce **Token** qu'il faudra coller, et pas votre mot de passe GitHub.
 
 1. Récupérer le projet
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -84,15 +102,22 @@ Ouvrez le fichier ``index.rst`` et ajoutez le nom de votre fichier (sans le .rst
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Une fois vos modifications effectuées (fichiers créés ou modifiés) :
 
+**1. Ajouter TOUS les fichiers (nouveaux et modifiés)**
+
 .. code-block:: bash
 
-   # 1. Ajouter TOUS les fichiers (nouveaux et modifiés)
    git add .
 
-   # 2. Enregistrer les modifications
+**2. Enregistrer les modifications (avec un message clair)**
+
+.. code-block:: bash
+
    git commit -m "Ajout d'une nouvelle page de doc"
 
-   # 3. Envoyer sur GitHub (remplacer 'rolling' par votre branche)
+**3. Envoyer sur GitHub (remplacer 'rolling' par votre branche)**
+
+.. code-block:: bash
+
    git push origin rolling
 
 5. Astuces Pratiques
