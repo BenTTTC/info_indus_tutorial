@@ -147,12 +147,11 @@ Vous verrez votre dernière modification dans la liste :
 
 
 **Voir votre magnifique site :**
-Le lien du site se trouve généralement dans la section "About" à droite sur la page d'accueil du GitHub, ou dans *Settings > Pages*.
+Le lien du site se trouve généralement dans la section "Deployments" en bas à droite sur la page d'accueil du GitHub, ou dans *Settings > Pages*.
 
 .. tip::
    **Le site ne change pas ?**
    Les navigateurs gardent l'ancienne version en mémoire ("Cache").
    Pour être sûr de voir vos modifications, ouvrez le lien en **Navigation Privée** (``Ctrl + Maj + N``) ou forcez l'actualisation (``Ctrl + F5``).
+.. rubric:: Bravo 
 
-Bravo ! 🎉
-==========
