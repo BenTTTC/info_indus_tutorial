@@ -1,6 +1,6 @@
-Bienvenue sur la documentation du Projet ROS
+Bienvenue sur la documentation du Projet RS
 ============================================
-TEST DE MODIF
+
 .. toctree::
    :maxdepth: 2
    :caption: Table des matières:
