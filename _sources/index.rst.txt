@@ -3,7 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-c00_intro/p00_index
+
+
+.. toctree::
+   :maxdepth: 3  
+   c00_intro/p00_index
 
 info_indus_tutorial documentation
 =================================
