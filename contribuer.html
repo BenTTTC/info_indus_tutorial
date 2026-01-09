@@ -61,10 +61,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#creer-une-nouvelle-page-sous-partie">3. Créer une nouvelle page (Sous-partie)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sauvegarder-et-envoyer">4. Sauvegarder et Envoyer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#astuces-pratiques">5. Astuces Pratiques</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verifier-et-voir-le-resultat">6. Vérifier et Voir le résultat</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#bravo">Bravo ! 🎉</a></li>
 </ul>
 
         </div>
@@ -103,7 +105,7 @@
 </section>
 <section id="contribuer-a-un-projet-existant">
 <h2>Contribuer à un projet existant<a class="headerlink" href="#contribuer-a-un-projet-existant" title="Link to this heading"></a></h2>
-<p>Après avoir créé votre projet avec le tutoriel plus haut, vous voulez sans doute le modifier ! Voici comment faire :</p>
+<p>Si vous voulez modifier un projet existant, suivez les étapes ci-dessous.</p>
 <section id="prerequis-configuration-et-token">
 <h3>0. Prérequis : Configuration et Token<a class="headerlink" href="#prerequis-configuration-et-token" title="Link to this heading"></a></h3>
 <p>Avant toute chose, configurez votre identité dans le terminal (à faire une seule fois) :</p>
@@ -112,8 +114,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </pre></div>
 </div>
 <p><strong>Important : Le mot de passe est un Token</strong>
-GitHub n’accepte plus votre mot de passe de compte habituel pour les commandes dans le terminal.
-Il faut utiliser un <strong>Personal Access Token (Classic)</strong>.
+GitHub n’accepte plus votre mot de passe de compte habituel pour les commandes dans le terminal. Il faut utiliser un <strong>Personal Access Token (Classic)</strong>.
 Si vous ne l’avez pas, générez-le sur le site GitHub (<em>Settings &gt; Developer settings &gt; Tokens (classic)</em>) en cochant la case <strong>repo</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -124,8 +125,6 @@ Si vous ne l’avez pas, générez-le sur le site GitHub (<em>Settings &gt; Deve
 </section>
 <section id="recuperer-le-projet">
 <h3>1. Récupérer le projet<a class="headerlink" href="#recuperer-le-projet" title="Link to this heading"></a></h3>
-<p>Si c’est votre projet que vous avez créé depuis cet ordinateur, placez vous dans le dossier de votre projet et passez à l’étape suivante.
-Si vous avez besoin de participer à un projet pas encore dans vos fichiers, voici comment faire :</p>
 <p>Assurez-vous d’abord d’avoir été ajouté comme <strong>Collaborateur</strong> sur le dépôt GitHub et d’avoir accepté l’invitation par email.</p>
 <p>Ensuite, ouvrez un terminal et clonez le dépôt :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BenTTTC/info_indus_tutorial.git
@@ -145,11 +144,11 @@ Si vous avez besoin de participer à un projet pas encore dans vos fichiers, voi
 </pre></div>
 </div>
 <p>La branche actuelle est celle avec une étoile <code class="docutils literal notranslate"><span class="pre">*</span></code> devant.
-<em>Exemple : si vous voyez</em> <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">rolling</span></code>, c’est que vous travaillez sur la branche <em>rolling.</em></p>
+<em>Exemple : si vous voyez</em> <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">rolling</span></code>, <em>c’est que vous travaillez sur la branche rolling.</em></p>
 </section>
 <section id="creer-une-nouvelle-page-sous-partie">
 <h3>3. Créer une nouvelle page (Sous-partie)<a class="headerlink" href="#creer-une-nouvelle-page-sous-partie" title="Link to this heading"></a></h3>
-<p>Pour ajouter une nouvelle page (comme ma page``installations.rst`` de ce site par exemple) et mieux organiser le site :</p>
+<p>Pour ajouter une nouvelle page (comme <code class="docutils literal notranslate"><span class="pre">installations.rst</span></code> par exemple) et mieux organiser le site :</p>
 <p><strong>Étape A : Créer le fichier</strong>
 Créez un nouveau fichier dans le dossier <code class="docutils literal notranslate"><span class="pre">source</span></code> avec l’extension <code class="docutils literal notranslate"><span class="pre">.rst</span></code> :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>ma_nouvelle_page.rst
@@ -202,7 +201,31 @@ Pour éviter que Git ne demande votre Pseudo et votre Token à chaque <code clas
 </div>
 <p><em>(Au prochain push, entrez vos identifiants une dernière fois, et ils seront mémorisés).</em></p>
 </section>
+<section id="verifier-et-voir-le-resultat">
+<h3>6. Vérifier et Voir le résultat<a class="headerlink" href="#verifier-et-voir-le-resultat" title="Link to this heading"></a></h3>
+<p>Une fois le <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> effectué, le travail n’est pas tout à fait fini ! GitHub doit maintenant reconstruire le site.</p>
+<p><strong>Vérifier que tout a fonctionné :</strong>
+Allez sur la page du projet GitHub et cliquez sur l’onglet <strong>Actions</strong> (en haut).
+Vous verrez votre dernière modification dans la liste :</p>
+<ul class="simple">
+<li><p>🟡 <strong>Cercle Jaune</strong> : Le site est en cours de construction (patience…).</p></li>
+<li><p>✅ <strong>Coche Verte</strong> : Le site est prêt !</p></li>
+<li><p>❌ <strong>Croix Rouge</strong> : Il y a une erreur dans le code (souvent un problème d’alignement dans le .rst).</p></li>
+</ul>
+<p><strong>Voir votre magnifique site :</strong>
+Le lien du site se trouve généralement dans la section “About” à droite sur la page d’accueil du GitHub, ou dans <em>Settings &gt; Pages</em>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Le site ne change pas ?</strong>
+Les navigateurs gardent l’ancienne version en mémoire (“Cache”).
+Pour être sûr de voir vos modifications, ouvrez le lien en <strong>Navigation Privée</strong> (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">Maj</span> <span class="pre">+</span> <span class="pre">N</span></code>) ou forcez l’actualisation (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">F5</span></code>).</p>
+</div>
 </section>
+</section>
+</section>
+<section id="bravo">
+<h1>Bravo ! 🎉<a class="headerlink" href="#bravo" title="Link to this heading"></a></h1>
+<p>Vous savez maintenant contribuer à la documentation comme un pro. Allez admirer votre travail en ligne ! 🚀</p>
 </section>
 
 

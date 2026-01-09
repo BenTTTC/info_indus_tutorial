@@ -11,7 +11,7 @@ Pour créer sa documentation, M.Yguel a déjà fait un tutoriel :
 
 Contribuer à un projet existant
 -------------------------------
-Après avoir créé votre projet avec le tutoriel plus haut, vous voulez sans doute le modifier ! Voici comment faire :
+Si vous voulez modifier un projet existant, suivez les étapes ci-dessous.
 
 0. Prérequis : Configuration et Token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,8 +23,7 @@ Avant toute chose, configurez votre identité dans le terminal (à faire une seu
    git config --global user.email "votre-email@exemple.com"
 
 **Important : Le mot de passe est un Token**
-GitHub n'accepte plus votre mot de passe de compte habituel pour les commandes dans le terminal. 
-Il faut utiliser un **Personal Access Token (Classic)**.
+GitHub n'accepte plus votre mot de passe de compte habituel pour les commandes dans le terminal. Il faut utiliser un **Personal Access Token (Classic)**.
 Si vous ne l'avez pas, générez-le sur le site GitHub (*Settings > Developer settings > Tokens (classic)*) en cochant la case **repo**.
 
 .. warning::
@@ -35,9 +34,6 @@ Si vous ne l'avez pas, générez-le sur le site GitHub (*Settings > Developer se
 
 1. Récupérer le projet
 ~~~~~~~~~~~~~~~~~~~~~~
-Si c'est votre projet que vous avez créé depuis cet ordinateur, placez vous dans le dossier de votre projet et passez à l'étape suivante.
-Si vous avez besoin de participer à un projet pas encore dans vos fichiers, voici comment faire :
-
 Assurez-vous d'abord d'avoir été ajouté comme **Collaborateur** sur le dépôt GitHub et d'avoir accepté l'invitation par email.
 
 Ensuite, ouvrez un terminal et clonez le dépôt :
@@ -65,11 +61,11 @@ Avant de modifier quoi que ce soit, vérifiez sur quelle branche vous êtes (par
    git branch
 
 La branche actuelle est celle avec une étoile ``*`` devant.
-*Exemple : si vous voyez* ``* rolling``, c'est que vous travaillez sur la branche *rolling.*
+*Exemple : si vous voyez* ``* rolling``, *c'est que vous travaillez sur la branche rolling.*
 
 3. Créer une nouvelle page (Sous-partie)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Pour ajouter une nouvelle page (comme ma page``installations.rst`` de ce site par exemple) et mieux organiser le site :
+Pour ajouter une nouvelle page (comme ``installations.rst`` par exemple) et mieux organiser le site :
 
 **Étape A : Créer le fichier**
 Créez un nouveau fichier dans le dossier ``source`` avec l'extension ``.rst`` :
@@ -135,3 +131,29 @@ Pour éviter que Git ne demande votre Pseudo et votre Token à chaque ``push``, 
    git config --global credential.helper store
 
 *(Au prochain push, entrez vos identifiants une dernière fois, et ils seront mémorisés).*
+
+6. Vérifier et Voir le résultat
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Une fois le ``git push`` effectué, le travail n'est pas tout à fait fini ! GitHub doit maintenant reconstruire le site.
+
+**Vérifier que tout a fonctionné :**
+Allez sur la page du projet GitHub et cliquez sur l'onglet **Actions** (en haut).
+Vous verrez votre dernière modification dans la liste :
+
+* 🟡 **Cercle Jaune** : Le site est en cours de construction (patience...).
+* ✅ **Coche Verte** : Le site est prêt !
+* ❌ **Croix Rouge** : Il y a une erreur dans le code (souvent un problème d'alignement dans le .rst).
+
+
+
+**Voir votre magnifique site :**
+Le lien du site se trouve généralement dans la section "About" à droite sur la page d'accueil du GitHub, ou dans *Settings > Pages*.
+
+.. tip::
+   **Le site ne change pas ?**
+   Les navigateurs gardent l'ancienne version en mémoire ("Cache").
+   Pour être sûr de voir vos modifications, ouvrez le lien en **Navigation Privée** (``Ctrl + Maj + N``) ou forcez l'actualisation (``Ctrl + F5``).
+
+Bravo ! 🎉
+==========
+Vous savez maintenant contribuer à la documentation comme un pro. Allez admirer votre travail en ligne ! 🚀
