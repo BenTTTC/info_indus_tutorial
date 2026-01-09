@@ -156,4 +156,3 @@ Le lien du site se trouve généralement dans la section "About" à droite sur l
 
 Bravo ! 🎉
 ==========
-Vous savez maintenant contribuer à la documentation comme un pro. Allez admirer votre travail en ligne ! 🚀
