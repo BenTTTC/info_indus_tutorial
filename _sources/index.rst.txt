@@ -1,4 +1,4 @@
-Bienvenue sur la documentation du Projet RS
+Bienvenue sur la documentation du Projet ROS
 ============================================
 
 .. toctree::
