@@ -5,7 +5,7 @@ Cette section couvre l'installation des outils nécessaires au projet.
 
 Comment installer ROS2
 ----------------------
-.. note::
+
    Pour installer ROS2 (version Humble), nous recommandons de suivre les ressources suivantes :
 
    * `Documentation officielle ROS2 Humble <https://docs.ros.org/en/humble/Installation.html>`_
@@ -13,7 +13,7 @@ Comment installer ROS2
    La chaine youtube fait aussi plein d'autres tutoriels sur ROS2 qui pourraient vous interesser.
 Comment installer Rviz
 ----------------------
-.. note::
+
    Rviz est normalement **déjà installé** si vous avez choisi la version "Desktop" de ROS2 (recommandée).
 
    Pour vérifier, ouvrez un terminal et tapez :
