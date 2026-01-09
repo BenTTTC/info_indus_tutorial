@@ -3,6 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+c00_intro/p00_index
+
 info_indus_tutorial documentation
 =================================
 Bienvenue dans la documentation du projet **info_indus_tutorial**.  
