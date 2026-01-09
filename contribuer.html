@@ -53,8 +53,14 @@
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulation.html">Pantographe en simulation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation du projet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#suivre-le-tuto-de-yguel">Suivre le tuto de Yguel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#comment-modifier-notre-site">Comment modifier notre site</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ressources-pedagogiques">Ressources pédagogiques</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#guide-du-contributeur-git">Guide du contributeur (Git)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recuperer-le-projet">1. Récupérer le projet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identifier-sa-branche-de-travail">2. Identifier sa branche de travail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modifier-et-sauvegarder-workflow-git">3. Modifier et Sauvegarder (Workflow Git)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#astuces-pratiques">4. Astuces Pratiques</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -85,18 +91,57 @@
              
   <section id="documentation-du-projet">
 <h1>Documentation du projet<a class="headerlink" href="#documentation-du-projet" title="Link to this heading"></a></h1>
-<p>Comment maintenir et modifier cette documentation.</p>
-<section id="suivre-le-tuto-de-yguel">
-<h2>Suivre le tuto de Yguel<a class="headerlink" href="#suivre-le-tuto-de-yguel" title="Link to this heading"></a></h2>
-<p>Lien vers le tutoriel ou résumé des points clés de M. Yguel.</p>
+<p>Cette page explique comment participer au développement de ce site.</p>
+<section id="ressources-pedagogiques">
+<h2>Ressources pédagogiques<a class="headerlink" href="#ressources-pedagogiques" title="Link to this heading"></a></h2>
+<p>Pour comprendre la structure de la documentation, référez-vous au support de cours :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://yguel.github.io/informatique_industrielle_avec_ROS2/c01_create_and_publish_doc/p01s02_create_and_publish_doc.html">Tutoriel officiel M. Yguel - Créer et publier une doc</a></p></li>
+</ul>
 </section>
-<section id="comment-modifier-notre-site">
-<h2>Comment modifier notre site<a class="headerlink" href="#comment-modifier-notre-site" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p>Modifier les fichiers <code class="docutils literal notranslate"><span class="pre">.rst</span></code>.</p></li>
-<li><p>Lancer la commande <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span> <span class="pre">--symlink-install</span></code> (ou <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code> selon ton setup).</p></li>
-<li><p>Pousser sur GitHub.</p></li>
-</ol>
+<section id="guide-du-contributeur-git">
+<h2>Guide du contributeur (Git)<a class="headerlink" href="#guide-du-contributeur-git" title="Link to this heading"></a></h2>
+<section id="recuperer-le-projet">
+<h3>1. Récupérer le projet<a class="headerlink" href="#recuperer-le-projet" title="Link to this heading"></a></h3>
+<p>Assurez-vous d’abord d’avoir été ajouté comme <strong>Collaborateur</strong> sur le dépôt GitHub et d’avoir accepté l’invitation par email.</p>
+<p>Ensuite, ouvrez un terminal et clonez le dépôt :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/BenTTTC/info_indus_tutorial.git
+<span class="nb">cd</span><span class="w"> </span>info_indus_tutorial
+</pre></div>
+</div>
+</section>
+<section id="identifier-sa-branche-de-travail">
+<h3>2. Identifier sa branche de travail<a class="headerlink" href="#identifier-sa-branche-de-travail" title="Link to this heading"></a></h3>
+<p>Avant de modifier quoi que ce soit, vérifiez sur quelle branche vous êtes (parfois <code class="docutils literal notranslate"><span class="pre">main</span></code>, <code class="docutils literal notranslate"><span class="pre">master</span></code> ou <code class="docutils literal notranslate"><span class="pre">rolling</span></code>). Tapez :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>branch
+</pre></div>
+</div>
+<p>La branche actuelle est celle avec une étoile <code class="docutils literal notranslate"><span class="pre">*</span></code> devant.
+<em>Exemple : si vous voyez</em> <code class="docutils literal notranslate"><span class="pre">*</span> <span class="pre">rolling</span></code>, <em>c’est que vous travaillez sur la branche rolling.</em></p>
+</section>
+<section id="modifier-et-sauvegarder-workflow-git">
+<h3>3. Modifier et Sauvegarder (Workflow Git)<a class="headerlink" href="#modifier-et-sauvegarder-workflow-git" title="Link to this heading"></a></h3>
+<p>Une fois vos modifications effectuées sur les fichiers <code class="docutils literal notranslate"><span class="pre">.rst</span></code> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Ajouter les fichiers modifiés</span>
+git<span class="w"> </span>add<span class="w"> </span>.
+
+<span class="c1"># 2. Enregistrer les modifications (avec un message clair)</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Description de ma modification&quot;</span>
+
+<span class="c1"># 3. Envoyer sur GitHub (remplacer &#39;rolling&#39; par votre branche)</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>rolling
+</pre></div>
+</div>
+</section>
+<section id="astuces-pratiques">
+<h3>4. Astuces Pratiques<a class="headerlink" href="#astuces-pratiques" title="Link to this heading"></a></h3>
+<p><strong>Ne plus taper son mot de passe à chaque fois :</strong>
+Pour éviter que Git ne demande votre Pseudo et votre Token à chaque <code class="docutils literal notranslate"><span class="pre">push</span></code>, lancez cette commande une seule fois :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>credential.helper<span class="w"> </span>store
+</pre></div>
+</div>
+<p><em>(Au prochain push, entrez vos identifiants une dernière fois, et ils seront mémorisés).</em></p>
+</section>
 </section>
 </section>
 
