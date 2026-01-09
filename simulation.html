@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bienvenue sur la documentation du Projet ROS &mdash; info_indus_tutorial  documentation</title>
+  <title>Pantographe en simulation &mdash; info_indus_tutorial  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -26,7 +26,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installations" href="installations.html" /> 
+    <link rel="next" title="Documentation du projet" href="contribuer.html" />
+    <link rel="prev" title="Installations" href="installations.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,7 +38,7 @@
 
           
           
-          <a href="#" class="icon icon-home">
+          <a href="index.html" class="icon icon-home">
             info_indus_tutorial
           </a>
 <div role="search">
@@ -49,9 +50,18 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Pantographe en simulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pantographe en simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#comment-bien-exporter-les-pieces-du-creo">Comment bien exporter les pièces du Créo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comment-faire-l-urdf">Comment faire l’URDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comment-ecrire-le-code-de-controle-des-moteurs">Comment écrire le code de contrôle des moteurs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#astuces-des-2-moteurs">Astuces des 2 moteurs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#comment-parametrer-rviz-pour-l-affichage">Comment paramétrer RVIZ pour l’affichage</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contribuer.html">Documentation du projet</a></li>
 </ul>
 
@@ -61,17 +71,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">info_indus_tutorial</a>
+          <a href="index.html">info_indus_tutorial</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Bienvenue sur la documentation du Projet ROS</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Pantographe en simulation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/simulation.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -79,37 +89,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="bienvenue-sur-la-documentation-du-projet-ros">
-<h1>Bienvenue sur la documentation du Projet ROS<a class="headerlink" href="#bienvenue-sur-la-documentation-du-projet-ros" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installations.html#comment-installer-ros2">Comment installer ROS2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installations.html#comment-installer-rviz">Comment installer Rviz</a></li>
+  <section id="pantographe-en-simulation">
+<h1>Pantographe en simulation<a class="headerlink" href="#pantographe-en-simulation" title="Link to this heading"></a></h1>
+<p>Tout ce qui concerne la simulation du robot pantographe.</p>
+<section id="comment-bien-exporter-les-pieces-du-creo">
+<h2>Comment bien exporter les pièces du Créo<a class="headerlink" href="#comment-bien-exporter-les-pieces-du-creo" title="Link to this heading"></a></h2>
+<p>Expliquer ici le format de fichier nécessaire (STL, DAE) et l’origine des repères.</p>
+</section>
+<section id="comment-faire-l-urdf">
+<h2>Comment faire l’URDF<a class="headerlink" href="#comment-faire-l-urdf" title="Link to this heading"></a></h2>
+<p>Explications sur la structure de l’arbre URDF et les joints (joints).</p>
+</section>
+<section id="comment-ecrire-le-code-de-controle-des-moteurs">
+<h2>Comment écrire le code de contrôle des moteurs<a class="headerlink" href="#comment-ecrire-le-code-de-controle-des-moteurs" title="Link to this heading"></a></h2>
+<p>Détails sur le nœud ROS2 de contrôle.</p>
+<section id="astuces-des-2-moteurs">
+<h3>Astuces des 2 moteurs<a class="headerlink" href="#astuces-des-2-moteurs" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Détail spécifique sur la synchronisation ou le pilotage des deux moteurs.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="simulation.html">Pantographe en simulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="simulation.html#comment-bien-exporter-les-pieces-du-creo">Comment bien exporter les pièces du Créo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simulation.html#comment-faire-l-urdf">Comment faire l’URDF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simulation.html#comment-ecrire-le-code-de-controle-des-moteurs">Comment écrire le code de contrôle des moteurs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simulation.html#comment-parametrer-rviz-pour-l-affichage">Comment paramétrer RVIZ pour l’affichage</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="contribuer.html">Documentation du projet</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contribuer.html#suivre-le-tuto-de-yguel">Suivre le tuto de Yguel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contribuer.html#comment-modifier-notre-site">Comment modifier notre site</a></li>
-</ul>
-</li>
-</ul>
-</div>
+</section>
+</section>
+<section id="comment-parametrer-rviz-pour-l-affichage">
+<h2>Comment paramétrer RVIZ pour l’affichage<a class="headerlink" href="#comment-parametrer-rviz-pour-l-affichage" title="Link to this heading"></a></h2>
+<p>Guide pour configurer le “Global Frame”, ajouter le “RobotModel” et sauvegarder la config <cite>.rviz</cite>.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installations.html" class="btn btn-neutral float-right" title="Installations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installations.html" class="btn btn-neutral float-left" title="Installations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contribuer.html" class="btn btn-neutral float-right" title="Documentation du projet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
