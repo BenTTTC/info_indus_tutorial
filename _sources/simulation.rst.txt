@@ -1,17 +1,16 @@
 Modèle Géométrique
-==============================
+==================
 
 Pour piloter le robot, nous devons traduire une position cartésienne cible $(X, Y)$ en angles moteurs. C'est le rôle du **Modèle Géométrique Inverse (MGI)**.
 
 Schéma Cinématique
 ------------------
+    Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres géométriques et les repères définis pour la modélisation :
 
-Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres géométriques et les repères définis pour la modélisation :
-
-.. image:: images/schema_cinematique.png
-   :width: 80%
-   :align: center
-   :alt: Schéma cinématique du robot Five Bar
+    .. image:: images/schema_cinematique.png
+    :width: 80%
+    :align: center
+    :alt: Schéma cinématique du robot Five Bar
 
 Paramètres du Code
 ~~~~~~~~~~~~~~~~~~
@@ -31,52 +30,52 @@ Le script de contrôle Python intègre les dimensions exactes mesurées sur la C
 Résolution Mathématique (MGI)
 -----------------------------
 
-La fonction ``solve_arm_ik`` du script découpe le problème en deux chaînes articulées indépendantes (RR : Rotoïde-Rotoïde). Pour chaque bras, nous formons un triangle entre le moteur, le coude et la cible.
+    La fonction ``solve_arm_ik`` du script découpe le problème en deux chaînes articulées indépendantes (RR : Rotoïde-Rotoïde). Pour chaque bras, nous formons un triangle entre le moteur, le coude et la cible.
 
-Nous utilisons le **Théorème d'Al-Kashi** (Loi des cosinus) pour trouver les angles articulaires.
+    Nous utilisons le **Théorème d'Al-Kashi** (Loi des cosinus) pour trouver les angles articulaires.
 
-1.  **Calcul de la distance et de l'angle global** :
-    On calcule le vecteur entre le moteur et la cible :math:`(dx, dy)` et la distance :math:`D`.
+    1.  **Calcul de la distance et de l'angle global** :
+        On calcule le vecteur entre le moteur et la cible :math:`(dx, dy)` et la distance :math:`D`.
 
-    .. math::
+        .. math::
 
-        D = \sqrt{dx^2 + dy^2}
+            D = \sqrt{dx^2 + dy^2}
 
-    .. math::
+        .. math::
 
-        \alpha = \arctan2(dy, dx)
+            \alpha = \arctan2(dy, dx)
 
-2.  **Calcul de l'angle moteur** (:math:`\theta_{motor}`) :
-    L'angle interne :math:`\beta` du triangle au niveau du moteur est donné par :
+    2.  **Calcul de l'angle moteur** (:math:`\theta_{motor}`) :
+        L'angle interne :math:`\beta` du triangle au niveau du moteur est donné par :
 
-    .. math::
+        .. math::
 
-        \cos(\beta) = \frac{L_1^2 + D^2 - L_2^2}{2 \cdot L_1 \cdot D}
+            \cos(\beta) = \frac{L_1^2 + D^2 - L_2^2}{2 \cdot L_1 \cdot D}
 
-    L'angle final du moteur dépend de la configuration du coude (signe de :math:`\beta`) :
+        L'angle final du moteur dépend de la configuration du coude (signe de :math:`\beta`) :
 
-    .. math::
+        .. math::
 
-        \theta_{motor} = \alpha + (\text{config} \times \beta)
+            \theta_{motor} = \alpha + (\text{config} \times \beta)
 
-3.  **Calcul de l'angle du coude** (:math:`\theta_{elbow}`) :
-    Bien que passif en réalité, cet angle est calculé pour la simulation afin de fermer la chaîne cinématique.
+    3.  **Calcul de l'angle du coude** (:math:`\theta_{elbow}`) :
+        Bien que passif en réalité, cet angle est calculé pour la simulation afin de fermer la chaîne cinématique.
 
-    .. math::
+        .. math::
 
-        \cos(\gamma) = \frac{L_1^2 + L_2^2 - D^2}{2 \cdot L_1 \cdot L_2}
+            \cos(\gamma) = \frac{L_1^2 + L_2^2 - D^2}{2 \cdot L_1 \cdot L_2}
 
-    .. math::
+        .. math::
 
-        \theta_{elbow} = \gamma
+            \theta_{elbow} = \gamma
 
 Script de Contrôle (Python)
 ---------------------------
 
-Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
-* Une interpolation linéaire pour lisser les mouvements.
-* Des vérifications de sécurité (limites angulaires et portée maximale).
-* La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).
+    Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
+    * Une interpolation linéaire pour lisser les mouvements.
+    * Des vérifications de sécurité (limites angulaires et portée maximale).
+    * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).
 
 .. code-block:: python
    :caption: scripts/five_bar_safe.py

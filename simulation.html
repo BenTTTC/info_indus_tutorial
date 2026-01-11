@@ -97,9 +97,21 @@
 <p>Pour piloter le robot, nous devons traduire une position cartésienne cible $(X, Y)$ en angles moteurs. C’est le rôle du <strong>Modèle Géométrique Inverse (MGI)</strong>.</p>
 <section id="schema-cinematique">
 <h2>Schéma Cinématique<a class="headerlink" href="#schema-cinematique" title="Link to this heading"></a></h2>
-<p>Le robot est une structure parallèle de type “Five-Bar”. Voici les paramètres géométriques et les repères définis pour la modélisation :</p>
-<a class="reference internal image-reference" href="_images/schema_cinematique.png"><img alt="Schéma cinématique du robot Five Bar" class="align-center" src="_images/schema_cinematique.png" style="width: 80%;" />
-</a>
+<blockquote>
+<div><p>Le robot est une structure parallèle de type “Five-Bar”. Voici les paramètres géométriques et les repères définis pour la modélisation :</p>
+<img alt="_images/schema_cinematique.png" src="_images/schema_cinematique.png" />
+<dl class="field-list simple">
+<dt class="field-odd">width<span class="colon">:</span></dt>
+<dd class="field-odd"><p>80%</p>
+</dd>
+<dt class="field-even">align<span class="colon">:</span></dt>
+<dd class="field-even"><p>center</p>
+</dd>
+<dt class="field-odd">alt<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Schéma cinématique du robot Five Bar</p>
+</dd>
+</dl>
+</div></blockquote>
 <section id="parametres-du-code">
 <h3>Paramètres du Code<a class="headerlink" href="#parametres-du-code" title="Link to this heading"></a></h3>
 <p>Le script de contrôle Python intègre les dimensions exactes mesurées sur la CAO  :</p>
@@ -127,7 +139,8 @@
 </section>
 <section id="resolution-mathematique-mgi">
 <h2>Résolution Mathématique (MGI)<a class="headerlink" href="#resolution-mathematique-mgi" title="Link to this heading"></a></h2>
-<p>La fonction <code class="docutils literal notranslate"><span class="pre">solve_arm_ik</span></code> du script découpe le problème en deux chaînes articulées indépendantes (RR : Rotoïde-Rotoïde). Pour chaque bras, nous formons un triangle entre le moteur, le coude et la cible.</p>
+<blockquote>
+<div><p>La fonction <code class="docutils literal notranslate"><span class="pre">solve_arm_ik</span></code> du script découpe le problème en deux chaînes articulées indépendantes (RR : Rotoïde-Rotoïde). Pour chaque bras, nous formons un triangle entre le moteur, le coude et la cible.</p>
 <p>Nous utilisons le <strong>Théorème d’Al-Kashi</strong> (Loi des cosinus) pour trouver les angles articulaires.</p>
 <ol class="arabic">
 <li><p><strong>Calcul de la distance et de l’angle global</strong> :
@@ -153,13 +166,16 @@ Bien que passif en réalité, cet angle est calculé pour la simulation afin de 
 \[\theta_{elbow} = \gamma\]</div>
 </li>
 </ol>
+</div></blockquote>
 </section>
 <section id="script-de-controle-python">
 <h2>Script de Contrôle (Python)<a class="headerlink" href="#script-de-controle-python" title="Link to this heading"></a></h2>
-<p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
+<blockquote>
+<div><p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
 * Une interpolation linéaire pour lisser les mouvements.
 * Des vérifications de sécurité (limites angulaires et portée maximale).
 * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).</p>
+</div></blockquote>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">scripts/five_bar_safe.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span> <span class="c1">#!/usr/bin/env python3</span>

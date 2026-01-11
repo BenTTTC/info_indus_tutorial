@@ -158,7 +158,8 @@
 </div>
 <section id="explication-des-tests">
 <h2>Explication des Tests<a class="headerlink" href="#explication-des-tests" title="Link to this heading"></a></h2>
-<p>Ce fichier valide trois aspects fondamentaux du contrôle robotique :</p>
+<blockquote>
+<div><p>Ce fichier valide trois aspects fondamentaux du contrôle robotique :</p>
 <ol class="arabic simple">
 <li><p><strong>Validité Géométrique (`test_bras_tendu`)</strong> :
 Vérifie que pour une position évidente (bras totalement déplié à l’horizontale), l’algorithme retourne exactement <span class="math notranslate nohighlight">\(0\)</span> radian. Cela valide que les formules d’Al-Kashi sont correctement implémentées.</p></li>
@@ -167,6 +168,7 @@ Si l’utilisateur ou le planificateur de trajectoire demande une position impos
 <li><p><strong>Gestion des Singularités (`test_config_signe`)</strong> :
 Vérifie que l’algorithme est capable de distinguer les deux solutions possibles pour atteindre un point (coude vers la gauche ou vers la droite) grâce au paramètre <code class="docutils literal notranslate"><span class="pre">config</span></code>. C’est crucial pour le robot Five Bar qui utilise les deux configurations simultanément (bras gauche vs bras droit).</p></li>
 </ol>
+</div></blockquote>
 </section>
 </section>
 
