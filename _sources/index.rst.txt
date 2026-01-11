@@ -6,5 +6,8 @@ Bienvenue sur la documentation du Projet ROS
    :caption: Table des matières:
 
    installations
+   urdf
    simulation
+   control
+   compilation
    contribuer

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pantographe en simulation &mdash; info_indus_tutorial  documentation</title>
+  <title>Modèle Géométrique &mdash; info_indus_tutorial  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -27,8 +27,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Documentation du projet" href="contribuer.html" />
-    <link rel="prev" title="Installations" href="installations.html" /> 
+    <link rel="next" title="Validation du Modèle : Tests Unitaires" href="control.html" />
+    <link rel="prev" title="Création de l’URDF" href="urdf.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,19 +53,8 @@
               <p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Pantographe en simulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#source-des-fichiers">Source des fichiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#comment-bien-exporter-les-pieces-du-creo">Comment bien exporter les pièces du Créo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#comment-faire-l-urdf">Comment faire l’URDF</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#la-contrainte-de-la-boucle-fermee-5-barres">La contrainte de la boucle fermée (5 barres)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#import-des-fichiers-3d-dans-l-urdf">Import des fichiers 3D dans l’URDF</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#code-urdf-complet">Code URDF complet</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration-des-controleurs">Configuration des contrôleurs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#modele-geometrique-et-controle">Modèle Géométrique et Contrôle</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="urdf.html">Création de l’URDF</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modèle Géométrique</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#schema-cinematique">Schéma Cinématique</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#parametres-du-code">Paramètres du Code</a></li>
 </ul>
@@ -74,16 +63,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#script-de-controle-python">Script de Contrôle (Python)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#validation-du-modele-tests-unitaires">Validation du Modèle : Tests Unitaires</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#explication-des-tests">Explication des Tests</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#compilation-et-lancement">Compilation et Lancement</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#compilation-du-paquet">1. Compilation du paquet</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lancement-de-la-simulation-terminal-1">2. Lancement de la Simulation (Terminal 1)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#execution-du-controle-terminal-2">3. Exécution du Contrôle (Terminal 2)</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="control.html">Validation du Modèle : Tests Unitaires</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compilation.html">Compilation et Lancement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribuer.html">Documentation du projet</a></li>
 </ul>
 
@@ -101,7 +82,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Pantographe en simulation</li>
+      <li class="breadcrumb-item active">Modèle Géométrique</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/simulation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -111,223 +92,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pantographe-en-simulation">
-<h1>Pantographe en simulation<a class="headerlink" href="#pantographe-en-simulation" title="Link to this heading"></a></h1>
-<section id="source-des-fichiers">
-<h2>Source des fichiers<a class="headerlink" href="#source-des-fichiers" title="Link to this heading"></a></h2>
-<p>Le modèle 3D de base provient du cours de M. Yguel.
-Fichier source : <code class="docutils literal notranslate"><span class="pre">maquette-5-barres_asm.stp</span></code> (Format STEP).</p>
-<p>Lien : <a class="reference external" href="https://yguel.github.io/informatique_industrielle_avec_ROS2/p00_pentograph_pencil_holder_with_rpi_and_dynamixel/p50s03_urdf.html">Cours Informatique Industrielle</a></p>
-</section>
-<section id="comment-bien-exporter-les-pieces-du-creo">
-<h2>Comment bien exporter les pièces du Créo<a class="headerlink" href="#comment-bien-exporter-les-pieces-du-creo" title="Link to this heading"></a></h2>
-<p>Pour que le robot s’articule correctement dans Rviz ou Gazebo, l’export des fichiers 3D doit suivre une méthodologie rigoureuse.</p>
-<ol class="arabic">
-<li><p><strong>Format de fichier</strong> : Bien que la source soit en STEP (.stp), les fichiers doivent être exportés en <strong>.STL</strong> pour être lisibles par l’URDF.</p></li>
-<li><p><strong>Unité</strong> : La CAO est souvent en millimètres (mm). ROS travaille en mètres (m).</p>
-<ul class="simple">
-<li><p><em>Astuce</em> : On applique une échelle de <code class="docutils literal notranslate"><span class="pre">0.001</span></code> dans l’URDF plus tard, pas besoin de redimensionner la pièce dans Créo.</p></li>
-</ul>
-</li>
-<li><p><strong>Le Repère (Origine)</strong> : C’est l’étape la plus critique.</p>
-<p>Lors de l’export de chaque pièce (base, bielles, bras), il faut définir un repère de sortie.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Il ne faut pas utiliser l’origine globale de l’assemblage !</p>
-<p>Il faut choisir le repère situé <strong>au niveau de la liaison avec la pièce précédente (le parent)</strong>.</p>
-<ul class="simple">
-<li><p>Exemple : Pour la bielle gauche, l’origine du fichier STL doit être placée exactement sur l’axe du moteur gauche.</p></li>
-<li><p>Si cela n’est pas fait, la pièce tournera autour d’un point arbitraire au lieu de tourner autour de son axe.</p></li>
-</ul>
-</div>
-</li>
-</ol>
-</section>
-<section id="comment-faire-l-urdf">
-<h2>Comment faire l’URDF<a class="headerlink" href="#comment-faire-l-urdf" title="Link to this heading"></a></h2>
-<p>L’URDF (Unified Robot Description Format) est un fichier XML qui décrit la structure cinématique du robot.</p>
-<section id="la-contrainte-de-la-boucle-fermee-5-barres">
-<h3>La contrainte de la boucle fermée (5 barres)<a class="headerlink" href="#la-contrainte-de-la-boucle-fermee-5-barres" title="Link to this heading"></a></h3>
-<p>Notre robot pantographe est mécaniquement une <strong>boucle fermée</strong> (mécanisme 5 barres). Cependant, le format URDF impose une structure stricte en <strong>arbre</strong> (arborescence parent-enfant), où chaque pièce ne peut avoir qu’un seul parent.</p>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<p>Il est <strong>impossible</strong> de définir une boucle fermée directement dans un fichier URDF. Si l’on essaie de relier le dernier maillon au premier, ROS ne pourra pas construire l’arbre cinématique.</p>
-</div>
-<p><strong>La Solution : 2 boucles ouvertes</strong></p>
-<p>Pour contourner ce problème, nous définissons le robot dans l’URDF comme <strong>deux bras indépendants</strong> (deux chaînes ouvertes) qui partent de la même base :</p>
-<ol class="arabic simple">
-<li><p><strong>Branche gauche :</strong> Base → Moteur G → Bielle G → Bras G</p></li>
-<li><p><strong>Branche droite :</strong> Base → Moteur D → Bielle D → Bras D</p></li>
-</ol>
-<p>Visuellement, les bras se touchent à la fin, mais informatiquement, ils sont séparés. C’est le simulateur ou le contrôleur qui assurera la cohérence physique.</p>
-</section>
-<section id="import-des-fichiers-3d-dans-l-urdf">
-<h3>Import des fichiers 3D dans l’URDF<a class="headerlink" href="#import-des-fichiers-3d-dans-l-urdf" title="Link to this heading"></a></h3>
-<p>L’URDF ne lit pas directement les fichiers <cite>.stp</cite>. Il faut utiliser les fichiers <cite>.stl</cite> exportés précédemment. On utilise la balise <code class="docutils literal notranslate"><span class="pre">&lt;mesh&gt;</span></code> à l’intérieur de <code class="docutils literal notranslate"><span class="pre">&lt;geometry&gt;</span></code>.</p>
-<p>La syntaxe est la suivante : <code class="docutils literal notranslate"><span class="pre">package://nom_du_dossier/chemin/fichier.stl</span></code>.</p>
-</section>
-<section id="code-urdf-complet">
-<h3>Code URDF complet<a class="headerlink" href="#code-urdf-complet" title="Link to this heading"></a></h3>
-<p>Voici le code utilisé pour décrire le pantographe. Notez l’utilisation de <code class="docutils literal notranslate"><span class="pre">scale=&quot;0.001</span> <span class="pre">0.001</span> <span class="pre">0.001&quot;</span></code> pour convertir les meshes (mm) en mètres lors de l’import.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">description/urdf/five_bar.urdf.xacro</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="nt">&lt;robot</span><span class="w"> </span><span class="na">xmlns:xacro=</span><span class="s">&quot;http://www.ros.org/wiki/xacro&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;five_bar_bot&quot;</span><span class="nt">&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;base_link&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;visual&gt;</span>
-<span class="w">      </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57 0 0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;geometry&gt;</span>
-<span class="w">        </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://five_bar_bot/description/meshes/base.stl&quot;</span><span class="w"> </span><span class="na">scale=</span><span class="s">&quot;0.001 0.001 0.001&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/geometry&gt;</span>
-<span class="w">      </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;grey&quot;</span><span class="nt">&gt;</span>
-<span class="w">        </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0.5 0.5 0.5 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/material&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/visual&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/link&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_motor_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;revolute&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_bielle_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;-0.08 -0.07 0.032&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;limit</span><span class="w"> </span><span class="na">lower=</span><span class="s">&quot;-6.28&quot;</span><span class="w"> </span><span class="na">upper=</span><span class="s">&quot;6.28&quot;</span><span class="w"> </span><span class="na">effort=</span><span class="s">&quot;10.0&quot;</span><span class="w"> </span><span class="na">velocity=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_bielle_link&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;visual&gt;</span>
-<span class="w">      </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;geometry&gt;</span>
-<span class="w">        </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://five_bar_bot/description/meshes/link1.stl&quot;</span><span class="w"> </span><span class="na">scale=</span><span class="s">&quot;0.001 0.001 0.001&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/geometry&gt;</span>
-<span class="w">      </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;blue&quot;</span><span class="nt">&gt;</span>
-<span class="w">        </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;0 0 0.8 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/material&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/visual&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/link&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_elbow_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;revolute&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_bielle_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;left_arm_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.08 0 0.054&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 3.14&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;limit</span><span class="w"> </span><span class="na">lower=</span><span class="s">&quot;-6.28&quot;</span><span class="w"> </span><span class="na">upper=</span><span class="s">&quot;6.28&quot;</span><span class="w"> </span><span class="na">effort=</span><span class="s">&quot;10.0&quot;</span><span class="w"> </span><span class="na">velocity=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_arm_link&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;visual&gt;</span>
-<span class="w">      </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;1.57 0 3.92699081699&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;geometry&gt;</span>
-<span class="w">         </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://five_bar_bot/description/meshes/link2.stl&quot;</span><span class="w"> </span><span class="na">scale=</span><span class="s">&quot;0.001 0.001 0.001&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/geometry&gt;</span>
-<span class="w">      </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;white&quot;</span><span class="nt">&gt;</span>
-<span class="w">         </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">rgba=</span><span class="s">&quot;1 1 1 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/material&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/visual&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/link&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_motor_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;revolute&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;base_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;right_bielle_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.058 -0.07 0.032&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;limit</span><span class="w"> </span><span class="na">lower=</span><span class="s">&quot;-6.28&quot;</span><span class="w"> </span><span class="na">upper=</span><span class="s">&quot;6.28&quot;</span><span class="w"> </span><span class="na">effort=</span><span class="s">&quot;10.0&quot;</span><span class="w"> </span><span class="na">velocity=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_bielle_link&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;visual&gt;</span>
-<span class="w">      </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;geometry&gt;</span>
-<span class="w">        </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://five_bar_bot/description/meshes/link4.stl&quot;</span><span class="w"> </span><span class="na">scale=</span><span class="s">&quot;0.001 0.001 0.001&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/geometry&gt;</span>
-<span class="w">      </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;blue&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/visual&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/link&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_elbow_joint&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;revolute&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;parent</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;right_bielle_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;child</span><span class="w"> </span><span class="na">link=</span><span class="s">&quot;right_arm_link&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0.079 0 0.053&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;0 0 3.14&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;axis</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 1&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;limit</span><span class="w"> </span><span class="na">lower=</span><span class="s">&quot;-6.28&quot;</span><span class="w"> </span><span class="na">upper=</span><span class="s">&quot;6.28&quot;</span><span class="w"> </span><span class="na">effort=</span><span class="s">&quot;10.0&quot;</span><span class="w"> </span><span class="na">velocity=</span><span class="s">&quot;5.0&quot;</span><span class="nt">/&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;link</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_arm_link&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;visual&gt;</span>
-<span class="w">      </span><span class="nt">&lt;origin</span><span class="w"> </span><span class="na">xyz=</span><span class="s">&quot;0 0 0&quot;</span><span class="w"> </span><span class="na">rpy=</span><span class="s">&quot;-1.57 0 -3.92699081699&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;geometry&gt;</span>
-<span class="w">        </span><span class="nt">&lt;mesh</span><span class="w"> </span><span class="na">filename=</span><span class="s">&quot;package://five_bar_bot/description/meshes/link3.stl&quot;</span><span class="w"> </span><span class="na">scale=</span><span class="s">&quot;0.001 0.001 0.001&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;/geometry&gt;</span>
-<span class="w">      </span><span class="nt">&lt;material</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;white&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/visual&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/link&gt;</span>
-
-<span class="w">  </span><span class="nt">&lt;ros2_control</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;FiveBarBotSystem&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;system&quot;</span><span class="nt">&gt;</span>
-<span class="w">    </span><span class="nt">&lt;hardware&gt;</span>
-<span class="w">      </span><span class="nt">&lt;plugin&gt;</span>mock_components/GenericSystem<span class="nt">&lt;/plugin&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/hardware&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_motor_joint&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/joint&gt;</span>
-<span class="w">    </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_motor_joint&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">      </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;left_elbow_joint&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span><span class="w"> </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/joint&gt;</span>
-
-<span class="w">    </span><span class="nt">&lt;joint</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;right_elbow_joint&quot;</span><span class="nt">&gt;</span>
-<span class="w">      </span><span class="nt">&lt;command_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span><span class="w"> </span><span class="nt">&lt;state_interface</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;position&quot;</span><span class="nt">/&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/joint&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/ros2_control&gt;</span>
-
-<span class="nt">&lt;/robot&gt;</span>
-</pre></div>
-</div>
-</div>
-</section>
-</section>
-<section id="configuration-des-controleurs">
-<h2>Configuration des contrôleurs<a class="headerlink" href="#configuration-des-controleurs" title="Link to this heading"></a></h2>
-<p>Pour piloter le robot en simulation, nous devons définir les paramètres du gestionnaire de contrôle (<cite>controller_manager</cite>). Créez un fichier nommé <code class="docutils literal notranslate"><span class="pre">controllers.yaml</span></code> (généralement situé dans le dossier <code class="docutils literal notranslate"><span class="pre">config/</span></code> de votre paquet) et ajoutez-y le contenu suivant :</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">config/controllers.yaml</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">  </span><span class="c1"># Hz</span>
-
-<span class="w">    </span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster/JointStateBroadcaster</span>
-
-<span class="w">    </span><span class="nt">forward_position_controller</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">forward_command_controller/ForwardCommandController</span>
-
-<span class="nt">forward_position_controller</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">interface_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">position</span>
-<span class="w">    </span><span class="nt">joints</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left_motor_joint</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right_motor_joint</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left_elbow_joint</span><span class="w">   </span><span class="c1"># Nécessaire pour la simulation</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right_elbow_joint</span><span class="w">  </span><span class="c1"># Nécessaire pour la simulation</span>
-</pre></div>
-</div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><strong>Pourquoi contrôler les coudes (“elbows”) ?</strong></p>
-<p>Vous remarquerez l’ajout de <code class="docutils literal notranslate"><span class="pre">left_elbow_joint</span></code> et <code class="docutils literal notranslate"><span class="pre">right_elbow_joint</span></code> dans la liste des articulations contrôlées.</p>
-<p>Bien que ces articulations soient des <strong>liaisons passives</strong> dans la réalité (elles n’ont pas de moteurs et suivent simplement le mouvement mécanique), elles doivent être déclarées comme <strong>contrôlées</strong> dans la simulation.</p>
-<p>Cette configuration est indispensable pour <strong>fermer cinématiquement la boucle</strong>. Sans cela, le simulateur physique pourrait traiter la structure comme une chaîne ouverte, entraînant un comportement physique incorrect ou instable. En leur attribuant une interface de position, nous forçons le simulateur à respecter la contrainte de fermeture géométrique du mécanisme.</p>
-</div>
-</section>
-</section>
-<section id="modele-geometrique-et-controle">
-<h1>Modèle Géométrique et Contrôle<a class="headerlink" href="#modele-geometrique-et-controle" title="Link to this heading"></a></h1>
+  <section id="modele-geometrique">
+<h1>Modèle Géométrique<a class="headerlink" href="#modele-geometrique" title="Link to this heading"></a></h1>
 <p>Pour piloter le robot, nous devons traduire une position cartésienne cible $(X, Y)$ en angles moteurs. C’est le rôle du <strong>Modèle Géométrique Inverse (MGI)</strong>.</p>
 <section id="schema-cinematique">
 <h2>Schéma Cinématique<a class="headerlink" href="#schema-cinematique" title="Link to this heading"></a></h2>
@@ -394,8 +160,8 @@ Bien que passif en réalité, cet angle est calculé pour la simulation afin de 
 * Une interpolation linéaire pour lisser les mouvements.
 * Des vérifications de sécurité (limites angulaires et portée maximale).
 * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">scripts/five_bar_safe.py</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">scripts/five_bar_safe.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span> <span class="c1">#!/usr/bin/env python3</span>
 <span class="linenos">  2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
 <span class="linenos">  3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
@@ -578,157 +344,13 @@ Bien que passif en réalité, cet angle est calculé pour la simulation afin de 
 </div>
 </section>
 </section>
-<section id="validation-du-modele-tests-unitaires">
-<h1>Validation du Modèle : Tests Unitaires<a class="headerlink" href="#validation-du-modele-tests-unitaires" title="Link to this heading"></a></h1>
-<p>Avant d’intégrer le modèle géométrique inverse (MGI) dans la simulation ROS 2, nous devons valider sa robustesse mathématique. Pour cela, nous utilisons un script de <strong>test unitaire</strong> isolé qui ne nécessite ni Gazebo ni ROS.</p>
-<p>Ce script simule des cas d’utilisation critiques pour vérifier que les équations réagissent correctement.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">tests/test_kinematics.py</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
-<span class="linenos"> 2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="linenos"> 3</span>
-<span class="linenos"> 4</span> <span class="c1"># Paramètres simplifiés pour le test (basés sur l&#39;URDF)</span>
-<span class="linenos"> 5</span> <span class="n">L1</span> <span class="o">=</span> <span class="mf">0.080</span>
-<span class="linenos"> 6</span> <span class="n">L2</span> <span class="o">=</span> <span class="mf">0.157</span>
-<span class="linenos"> 7</span>
-<span class="linenos"> 8</span> <span class="k">def</span><span class="w"> </span><span class="nf">solve_arm_ik_test</span><span class="p">(</span><span class="n">target_x</span><span class="p">,</span> <span class="n">target_y</span><span class="p">,</span> <span class="n">motor_x</span><span class="p">,</span> <span class="n">motor_y</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
-<span class="linenos"> 9</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="linenos">10</span><span class="sd">     Version isolée de la fonction MGI pour le test.</span>
-<span class="linenos">11</span><span class="sd">     Permet de tester la logique mathématique sans lancer ROS.</span>
-<span class="linenos">12</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="linenos">13</span>     <span class="n">dx</span> <span class="o">=</span> <span class="n">target_x</span> <span class="o">-</span> <span class="n">motor_x</span>
-<span class="linenos">14</span>     <span class="n">dy</span> <span class="o">=</span> <span class="n">target_y</span> <span class="o">-</span> <span class="n">motor_y</span>
-<span class="linenos">15</span>     <span class="n">dist</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="o">*</span><span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span><span class="o">*</span><span class="n">dy</span><span class="p">)</span>
-<span class="linenos">16</span>
-<span class="linenos">17</span>     <span class="c1"># 1. Vérification de portée (Sécurité)</span>
-<span class="linenos">18</span>     <span class="k">if</span> <span class="n">dist</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">L1</span> <span class="o">+</span> <span class="n">L2</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dist</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">L1</span> <span class="o">-</span> <span class="n">L2</span><span class="p">):</span>
-<span class="linenos">19</span>         <span class="k">return</span> <span class="kc">None</span> <span class="c1"># Cible inatteignable</span>
-<span class="linenos">20</span>
-<span class="linenos">21</span>     <span class="c1"># 2. Calcul Al-Kashi</span>
-<span class="linenos">22</span>     <span class="n">alpha</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">dy</span><span class="p">,</span> <span class="n">dx</span><span class="p">)</span>
-<span class="linenos">23</span>
-<span class="linenos">24</span>     <span class="c1"># &#39;Clamp&#39; pour éviter les erreurs numériques (ex: 1.000000002)</span>
-<span class="linenos">25</span>     <span class="c1"># Si la valeur dépasse 1, math.acos() ferait planter le programme.</span>
-<span class="linenos">26</span>     <span class="n">cos_beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">L1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">dist</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">L2</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">L1</span> <span class="o">*</span> <span class="n">dist</span><span class="p">)</span>
-<span class="linenos">27</span>     <span class="n">cos_beta</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">cos_beta</span><span class="p">))</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span>     <span class="n">beta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">cos_beta</span><span class="p">)</span>
-<span class="linenos">30</span>     <span class="k">return</span> <span class="n">alpha</span> <span class="o">+</span> <span class="p">(</span><span class="n">config</span> <span class="o">*</span> <span class="n">beta</span><span class="p">)</span>
-<span class="linenos">31</span>
-<span class="linenos">32</span> <span class="k">class</span><span class="w"> </span><span class="nc">TestInverseKinematics</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
-<span class="linenos">33</span>
-<span class="linenos">34</span>     <span class="k">def</span><span class="w"> </span><span class="nf">test_bras_tendu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">35</span><span class="w">         </span><span class="sd">&quot;&quot;&quot; Cas nominal : Vérifie un résultat connu (bras tendu). &quot;&quot;&quot;</span>
-<span class="linenos">36</span>         <span class="c1"># Si on vise exactement la longueur totale du bras (L1+L2) sur l&#39;axe X,</span>
-<span class="linenos">37</span>         <span class="c1"># l&#39;angle du moteur doit être mathématiquement 0°.</span>
-<span class="linenos">38</span>         <span class="n">theta</span> <span class="o">=</span> <span class="n">solve_arm_ik_test</span><span class="p">(</span><span class="n">L1</span> <span class="o">+</span> <span class="n">L2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">39</span>         <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="linenos">40</span>
-<span class="linenos">41</span>     <span class="k">def</span><span class="w"> </span><span class="nf">test_hors_portee</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">42</span><span class="w">         </span><span class="sd">&quot;&quot;&quot; Cas d&#39;erreur : Vérifie la sécurité de portée. &quot;&quot;&quot;</span>
-<span class="linenos">43</span>         <span class="c1"># On demande une cible impossible (10 mètres).</span>
-<span class="linenos">44</span>         <span class="c1"># La fonction DOIT renvoyer None et ne pas planter.</span>
-<span class="linenos">45</span>         <span class="n">theta</span> <span class="o">=</span> <span class="n">solve_arm_ik_test</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">46</span>         <span class="bp">self</span><span class="o">.</span><span class="n">assertIsNone</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-<span class="linenos">47</span>
-<span class="linenos">48</span>     <span class="k">def</span><span class="w"> </span><span class="nf">test_config_signe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="linenos">49</span><span class="w">         </span><span class="sd">&quot;&quot;&quot; Cas d&#39;ambiguïté : Vérifie la gestion du coude (Haut/Bas). &quot;&quot;&quot;</span>
-<span class="linenos">50</span>         <span class="c1"># Pour un même point, config=1 et config=-1 doivent donner</span>
-<span class="linenos">51</span>         <span class="c1"># deux angles moteurs différents (symétrie du coude).</span>
-<span class="linenos">52</span>         <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="linenos">53</span>         <span class="n">theta_pos</span> <span class="o">=</span> <span class="n">solve_arm_ik_test</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">54</span>         <span class="n">theta_neg</span> <span class="o">=</span> <span class="n">solve_arm_ik_test</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="linenos">55</span>
-<span class="linenos">56</span>         <span class="bp">self</span><span class="o">.</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="n">theta_pos</span><span class="p">,</span> <span class="n">theta_neg</span><span class="p">)</span>
-<span class="linenos">57</span>
-<span class="linenos">58</span> <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-<span class="linenos">59</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Lancement des tests cinématiques...&quot;</span><span class="p">)</span>
-<span class="linenos">60</span>     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<section id="explication-des-tests">
-<h2>Explication des Tests<a class="headerlink" href="#explication-des-tests" title="Link to this heading"></a></h2>
-<p>Ce fichier valide trois aspects fondamentaux du contrôle robotique :</p>
-<ol class="arabic simple">
-<li><p><strong>Validité Géométrique (`test_bras_tendu`)</strong> :
-Vérifie que pour une position évidente (bras totalement déplié à l’horizontale), l’algorithme retourne exactement <span class="math notranslate nohighlight">\(0\)</span> radian. Cela valide que les formules d’Al-Kashi sont correctement implémentées.</p></li>
-<li><p><strong>Sécurité de l’Espace de Travail (`test_hors_portee`)</strong> :
-Si l’utilisateur ou le planificateur de trajectoire demande une position impossible (trop loin), le code ne doit pas planter avec une erreur mathématique. Il doit détecter le problème proprement. Ce test confirme que la protection de distance fonctionne.</p></li>
-<li><p><strong>Gestion des Singularités (`test_config_signe`)</strong> :
-Vérifie que l’algorithme est capable de distinguer les deux solutions possibles pour atteindre un point (coude vers la gauche ou vers la droite) grâce au paramètre <code class="docutils literal notranslate"><span class="pre">config</span></code>. C’est crucial pour le robot Five Bar qui utilise les deux configurations simultanément (bras gauche vs bras droit).</p></li>
-</ol>
-</section>
-</section>
-<section id="compilation-et-lancement">
-<h1>Compilation et Lancement<a class="headerlink" href="#compilation-et-lancement" title="Link to this heading"></a></h1>
-<p>Une fois le code implémenté et validé, nous pouvons lancer la simulation complète. Cette procédure nécessite l’utilisation de deux terminaux : l’un pour l’environnement de simulation, l’autre pour le script de contrôle.</p>
-<section id="compilation-du-paquet">
-<h2>1. Compilation du paquet<a class="headerlink" href="#compilation-du-paquet" title="Link to this heading"></a></h2>
-<p>Avant toute chose, assurez-vous de compiler les dernières modifications (URDF, scripts, configuration) depuis la racine de votre workspace :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>five_bar_bot<span class="w"> </span>--symlink-install
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>L’option <code class="docutils literal notranslate"><span class="pre">--symlink-install</span></code> est très utile en développement : elle permet de modifier les scripts Python (comme <code class="docutils literal notranslate"><span class="pre">five_bar.py</span></code>) sans avoir à recompiler à chaque fois.</p>
-</div>
-</section>
-<section id="lancement-de-la-simulation-terminal-1">
-<h2>2. Lancement de la Simulation (Terminal 1)<a class="headerlink" href="#lancement-de-la-simulation-terminal-1" title="Link to this heading"></a></h2>
-<p>Dans ce premier terminal, nous sourçons l’environnement et lançons la visualisation (RViz/Gazebo) ainsi que le <cite>controller_manager</cite>.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>install/setup.bash
-ros2<span class="w"> </span>launch<span class="w"> </span>five_bar_bot<span class="w"> </span>view_robot.launch.py
-</pre></div>
-</div>
-<p>À ce stade, le robot doit apparaître dans la fenêtre de simulation. Il est immobile et maintenu en position par les contrôleurs.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>Si le robot n’apparaît pas dans RViz</strong></p>
-<p>Il est fréquent que RViz s’ouvre “vide” lors du premier lancement. Vous devez configurer l’affichage manuellement :</p>
-<ol class="arabic simple">
-<li><p><strong>Changer le repère fixe (Fixed Frame)</strong> :
-Dans le panneau de gauche “Displays”, sous <strong>Global Options</strong>, changez l’option <strong>Fixed Frame</strong> de <code class="docutils literal notranslate"><span class="pre">map</span></code> à <code class="docutils literal notranslate"><span class="pre">base_link</span></code> (ou <code class="docutils literal notranslate"><span class="pre">world</span></code> selon votre URDF).</p></li>
-<li><p><strong>Ajouter le modèle du robot</strong> :
-Cliquez sur le bouton <strong>Add</strong> (en bas à gauche), cherchez <strong>RobotModel</strong> dans la liste et cliquez sur <strong>OK</strong>.</p></li>
-</ol>
-<p>Le robot devrait maintenant apparaître.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Pour ne plus avoir à refaire ces étapes, faites <strong>File &gt; Save Config As…</strong> dans RViz une fois tout réglé.</p>
-</div>
-</div>
-</section>
-<section id="execution-du-controle-terminal-2">
-<h2>3. Exécution du Contrôle (Terminal 2)<a class="headerlink" href="#execution-du-controle-terminal-2" title="Link to this heading"></a></h2>
-<p>Ouvrez un <strong>nouveau terminal</strong>. Il est nécessaire de recharger l’environnement ROS 2 ici aussi.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>install/setup.bash
-</pre></div>
-</div>
-<p>Lancez ensuite le script de pilotage Python :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Si le script a été installé via setup.py :</span>
-ros2<span class="w"> </span>run<span class="w"> </span>five_bar_bot<span class="w"> </span>five_bar.py
-
-<span class="c1"># Ou directement via Python (selon votre arborescence) :</span>
-<span class="c1"># python3 src/five_bar_bot/scripts/five_bar.py</span>
-</pre></div>
-</div>
-<p>Une interface textuelle devrait apparaître vous demandant de saisir les coordonnées cibles :</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--- CONTROLEUR SECURISE ---
-Entrez cible X Y :
-  X &gt;
-</pre></div>
-</div>
-<p>Vous pouvez maintenant entrer des valeurs (par exemple <code class="docutils literal notranslate"><span class="pre">0.0</span></code> et <code class="docutils literal notranslate"><span class="pre">0.15</span></code>) et observer le robot bouger dans la fenêtre de simulation du premier terminal.</p>
-</section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installations.html" class="btn btn-neutral float-left" title="Installations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="contribuer.html" class="btn btn-neutral float-right" title="Documentation du projet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="urdf.html" class="btn btn-neutral float-left" title="Création de l’URDF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="control.html" class="btn btn-neutral float-right" title="Validation du Modèle : Tests Unitaires" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
