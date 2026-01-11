@@ -1,16 +1,11 @@
 Pantographe en simulation
 =========================
 
-Tout ce qui concerne la simulation du robot pantographe.
-
-Comment bien exporter les pièces du Créo
-----------------------------------------
-Cette section détaille la procédure pour passer de la CAO (Conception Assistée par Ordinateur) à la simulation sous ROS2.
-
 Source des fichiers
 -------------------
 Le modèle 3D de base provient du cours de M. Yguel.
 Fichier source : ``maquette-5-barres_asm.stp`` (Format STEP).
+
 Lien : `Cours Informatique Industrielle <https://yguel.github.io/informatique_industrielle_avec_ROS2/p00_pentograph_pencil_holder_with_rpi_and_dynamixel/p50s03_urdf.html>`_
 
 Comment bien exporter les pièces du Créo
@@ -40,18 +35,34 @@ Comment faire l'URDF
 
 L'URDF (Unified Robot Description Format) est un fichier XML qui décrit la structure cinématique du robot.
 
-Structure de l'arbre
-~~~~~~~~~~~~~~~~~~~~
-Notre robot est un système à chaînes cinématiques fermées, mais décrit ici comme deux branches ouvertes partant de la base :
+La contrainte de la boucle fermée (5 barres)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Base**
-    * Joint Moteur Gauche -> **Bielle Gauche** -> Joint Coude Gauche -> **Bras Gauche**
-    * Joint Moteur Droit -> **Bielle Droite** -> Joint Coude Droit -> **Bras Droit**
+Notre robot pantographe est mécaniquement une **boucle fermée** (mécanisme 5 barres). Cependant, le format URDF impose une structure stricte en **arbre** (arborescence parent-enfant), où chaque pièce ne peut avoir qu'un seul parent.
+
+.. error::
+   Il est **impossible** de définir une boucle fermée directement dans un fichier URDF. Si l'on essaie de relier le dernier maillon au premier, ROS ne pourra pas construire l'arbre cinématique.
+
+**La Solution : 2 boucles ouvertes**
+
+Pour contourner ce problème, nous définissons le robot dans l'URDF comme **deux bras indépendants** (deux chaînes ouvertes) qui partent de la même base :
+
+1.  **Branche gauche :** Base → Moteur G → Bielle G → Bras G
+2.  **Branche droite :** Base → Moteur D → Bielle D → Bras D
+
+Visuellement, les bras se touchent à la fin, mais informatiquement, ils sont séparés. C'est le simulateur ou le contrôleur qui assurera la cohérence physique.
+
+Import des fichiers 3D dans l'URDF
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+L'URDF ne lit pas directement les fichiers `.stp`. Il faut utiliser les fichiers `.stl` exportés précédemment. On utilise la balise ``<mesh>`` à l'intérieur de ``<geometry>``.
+
+La syntaxe est la suivante : ``package://nom_du_dossier/chemin/fichier.stl``.
 
 Code URDF complet
 ~~~~~~~~~~~~~~~~~
 
-Voici le code utilisé pour décrire le pantographe. Notez l'utilisation de ``scale="0.001 0.001 0.001"`` pour convertir les meshes (mm) en mètres.
+Voici le code utilisé pour décrire le pantographe. Notez l'utilisation de ``scale="0.001 0.001 0.001"`` pour convertir les meshes (mm) en mètres lors de l'import.
 
 .. code-block:: xml
 
@@ -170,10 +181,6 @@ Voici le code utilisé pour décrire le pantographe. Notez l'utilisation de ``sc
       </ros2_control>
 
     </robot>
-
-Comment faire l'URDF
---------------------
-Explications sur la structure de l'arbre URDF et les joints (joints).
 
 Comment écrire le code de contrôle des moteurs
 ----------------------------------------------
