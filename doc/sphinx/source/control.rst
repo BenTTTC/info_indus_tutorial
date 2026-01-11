@@ -73,13 +73,13 @@ Ce script simule des cas d'utilisation critiques pour vérifier que les équatio
 Explication des Tests
 ---------------------
 
-Ce fichier valide trois aspects fondamentaux du contrôle robotique :
+    Ce fichier valide trois aspects fondamentaux du contrôle robotique :
 
-1.  **Validité Géométrique (`test_bras_tendu`)** :
-    Vérifie que pour une position évidente (bras totalement déplié à l'horizontale), l'algorithme retourne exactement :math:`0` radian. Cela valide que les formules d'Al-Kashi sont correctement implémentées.
+    1.  **Validité Géométrique (`test_bras_tendu`)** :
+        Vérifie que pour une position évidente (bras totalement déplié à l'horizontale), l'algorithme retourne exactement :math:`0` radian. Cela valide que les formules d'Al-Kashi sont correctement implémentées.
 
-2.  **Sécurité de l'Espace de Travail (`test_hors_portee`)** :
-    Si l'utilisateur ou le planificateur de trajectoire demande une position impossible (trop loin), le code ne doit pas planter avec une erreur mathématique. Il doit détecter le problème proprement. Ce test confirme que la protection de distance fonctionne.
+    2.  **Sécurité de l'Espace de Travail (`test_hors_portee`)** :
+        Si l'utilisateur ou le planificateur de trajectoire demande une position impossible (trop loin), le code ne doit pas planter avec une erreur mathématique. Il doit détecter le problème proprement. Ce test confirme que la protection de distance fonctionne.
 
-3.  **Gestion des Singularités (`test_config_signe`)** :
-    Vérifie que l'algorithme est capable de distinguer les deux solutions possibles pour atteindre un point (coude vers la gauche ou vers la droite) grâce au paramètre ``config``. C'est crucial pour le robot Five Bar qui utilise les deux configurations simultanément (bras gauche vs bras droit).
+    3.  **Gestion des Singularités (`test_config_signe`)** :
+        Vérifie que l'algorithme est capable de distinguer les deux solutions possibles pour atteindre un point (coude vers la gauche ou vers la droite) grâce au paramètre ``config``. C'est crucial pour le robot Five Bar qui utilise les deux configurations simultanément (bras gauche vs bras droit).
