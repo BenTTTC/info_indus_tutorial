@@ -61,6 +61,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#code-urdf-complet">Code URDF complet</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-des-controleurs">Configuration des contrôleurs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comment-ecrire-le-code-de-controle-des-moteurs">Comment écrire le code de contrôle des moteurs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#astuces-des-2-moteurs">Astuces des 2 moteurs</a></li>
 </ul>
@@ -153,6 +154,8 @@ Fichier source : <code class="docutils literal notranslate"><span class="pre">ma
 <section id="code-urdf-complet">
 <h3>Code URDF complet<a class="headerlink" href="#code-urdf-complet" title="Link to this heading"></a></h3>
 <p>Voici le code utilisé pour décrire le pantographe. Notez l’utilisation de <code class="docutils literal notranslate"><span class="pre">scale=&quot;0.001</span> <span class="pre">0.001</span> <span class="pre">0.001&quot;</span></code> pour convertir les meshes (mm) en mètres lors de l’import.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">description/urdf/five_bar.urdf.xacro</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;robot</span><span class="w"> </span><span class="na">xmlns:xacro=</span><span class="s">&quot;http://www.ros.org/wiki/xacro&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;five_bar_bot&quot;</span><span class="nt">&gt;</span>
 
@@ -270,7 +273,42 @@ Fichier source : <code class="docutils literal notranslate"><span class="pre">ma
 <span class="nt">&lt;/robot&gt;</span>
 </pre></div>
 </div>
+</div>
 </section>
+</section>
+<section id="configuration-des-controleurs">
+<h2>Configuration des contrôleurs<a class="headerlink" href="#configuration-des-controleurs" title="Link to this heading"></a></h2>
+<p>Pour piloter le robot en simulation, nous devons définir les paramètres du gestionnaire de contrôle (<cite>controller_manager</cite>). Créez un fichier nommé <code class="docutils literal notranslate"><span class="pre">controllers.yaml</span></code> (généralement situé dans le dossier <code class="docutils literal notranslate"><span class="pre">config/</span></code> de votre paquet) et ajoutez-y le contenu suivant :</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">config/controllers.yaml</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">controller_manager</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">update_rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">  </span><span class="c1"># Hz</span>
+
+<span class="w">    </span><span class="nt">joint_state_broadcaster</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">joint_state_broadcaster/JointStateBroadcaster</span>
+
+<span class="w">    </span><span class="nt">forward_position_controller</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">forward_command_controller/ForwardCommandController</span>
+
+<span class="nt">forward_position_controller</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ros__parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">interface_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">position</span>
+<span class="w">    </span><span class="nt">joints</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left_motor_joint</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right_motor_joint</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left_elbow_joint</span><span class="w">   </span><span class="c1"># Nécessaire pour la simulation</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right_elbow_joint</span><span class="w">  </span><span class="c1"># Nécessaire pour la simulation</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pourquoi contrôler les coudes (“elbows”) ?</strong></p>
+<p>Vous remarquerez l’ajout de <code class="docutils literal notranslate"><span class="pre">left_elbow_joint</span></code> et <code class="docutils literal notranslate"><span class="pre">right_elbow_joint</span></code> dans la liste des articulations contrôlées.</p>
+<p>Bien que ces articulations soient des <strong>liaisons passives</strong> dans la réalité (elles n’ont pas de moteurs et suivent simplement le mouvement mécanique), elles doivent être déclarées comme <strong>contrôlées</strong> dans la simulation.</p>
+<p>Cette configuration est indispensable pour <strong>fermer cinématiquement la boucle</strong>. Sans cela, le simulateur physique pourrait traiter la structure comme une chaîne ouverte, entraînant un comportement physique incorrect ou instable. En leur attribuant une interface de position, nous forçons le simulateur à respecter la contrainte de fermeture géométrique du mécanisme.</p>
+</div>
 </section>
 <section id="comment-ecrire-le-code-de-controle-des-moteurs">
 <h2>Comment écrire le code de contrôle des moteurs<a class="headerlink" href="#comment-ecrire-le-code-de-controle-des-moteurs" title="Link to this heading"></a></h2>

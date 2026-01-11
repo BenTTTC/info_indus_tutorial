@@ -65,6 +65,7 @@ Code URDF complet
 Voici le code utilisé pour décrire le pantographe. Notez l'utilisation de ``scale="0.001 0.001 0.001"`` pour convertir les meshes (mm) en mètres lors de l'import.
 
 .. code-block:: xml
+    :caption: description/urdf/five_bar.urdf.xacro
 
     <?xml version="1.0"?>
     <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="five_bar_bot">
@@ -181,6 +182,41 @@ Voici le code utilisé pour décrire le pantographe. Notez l'utilisation de ``sc
       </ros2_control>
 
     </robot>
+
+Configuration des contrôleurs
+-----------------------------
+
+Pour piloter le robot en simulation, nous devons définir les paramètres du gestionnaire de contrôle (`controller_manager`). Créez un fichier nommé ``controllers.yaml`` (généralement situé dans le dossier ``config/`` de votre paquet) et ajoutez-y le contenu suivant :
+
+.. code-block:: yaml
+   :caption: config/controllers.yaml
+
+   controller_manager:
+     ros__parameters:
+       update_rate: 100  # Hz
+
+       joint_state_broadcaster:
+         type: joint_state_broadcaster/JointStateBroadcaster
+
+       forward_position_controller:
+         type: forward_command_controller/ForwardCommandController
+
+   forward_position_controller:
+     ros__parameters:
+       interface_name: position
+       joints:
+         - left_motor_joint
+         - right_motor_joint
+         - left_elbow_joint   # Nécessaire pour la simulation
+         - right_elbow_joint  # Nécessaire pour la simulation
+
+.. note:: **Pourquoi contrôler les coudes ("elbows") ?**
+
+   Vous remarquerez l'ajout de ``left_elbow_joint`` et ``right_elbow_joint`` dans la liste des articulations contrôlées.
+
+   Bien que ces articulations soient des **liaisons passives** dans la réalité (elles n'ont pas de moteurs et suivent simplement le mouvement mécanique), elles doivent être déclarées comme **contrôlées** dans la simulation.
+   
+   Cette configuration est indispensable pour **fermer cinématiquement la boucle**. Sans cela, le simulateur physique pourrait traiter la structure comme une chaîne ouverte, entraînant un comportement physique incorrect ou instable. En leur attribuant une interface de position, nous forçons le simulateur à respecter la contrainte de fermeture géométrique du mécanisme.
 
 Comment écrire le code de contrôle des moteurs
 ----------------------------------------------
