@@ -236,46 +236,59 @@ Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres 
 Paramètres du Code
 ~~~~~~~~~~~~~~~~~~
 
-Le script de contrôle Python intègre les dimensions exactes mesurées sur le robot réel (ou l'URDF) :
+Le script de contrôle Python intègre les dimensions exactes mesurées sur la CAO  :
 
-* **Bras Gauche (Left Arm - $A_1 \to A_2 \to P$)** :
-    * Position Moteur ($A_1$) : $x = -0.08m, y = -0.07m$
-    * Longueur $L_1$ : $0.080m$
-    * Longueur $L_2$ : $0.157m$
+* **Bras Gauche (Left Arm -** :math:`A_1 \to A_2 \to P` **)** :
+    * Position Moteur (:math:`A_1`) : :math:`x = -0.08m, y = -0.07m`
+    * Longueur :math:`L_1` : :math:`0.080m`
+    * Longueur :math:`L_2` : :math:`0.157m`
 
-* **Bras Droit (Right Arm - $A_5 \to A_4 \to P$)** :
-    * Position Moteur ($A_5$) : $x = 0.058m, y = -0.07m$
-    * Longueur $L_1$ : $0.079m$
-    * Longueur $L_2$ : $0.147m$
+* **Bras Droit (Right Arm -** :math:`A_5 \to A_4 \to P` **)** :
+    * Position Moteur (:math:`A_5`) : :math:`x = 0.058m, y = -0.07m`
+    * Longueur :math:`L_1` : :math:`0.079m`
+    * Longueur :math:`L_2` : :math:`0.147m`
 
 Résolution Mathématique (MGI)
 -----------------------------
 
 La fonction ``solve_arm_ik`` du script découpe le problème en deux chaînes articulées indépendantes (RR : Rotoïde-Rotoïde). Pour chaque bras, nous formons un triangle entre le moteur, le coude et la cible.
 
-
 Nous utilisons le **Théorème d'Al-Kashi** (Loi des cosinus) pour trouver les angles articulaires.
 
 1.  **Calcul de la distance et de l'angle global** :
-    On calcule le vecteur entre le moteur et la cible $(dx, dy)$ et la distance $D$.
+    On calcule le vecteur entre le moteur et la cible :math:`(dx, dy)` et la distance :math:`D`.
 
-    $$ D = \sqrt{dx^2 + dy^2} $$
-    $$ \alpha = \arctan2(dy, dx) $$
+    .. math::
 
-2.  **Calcul de l'angle moteur ($\theta_{motor}$)** :
-    L'angle interne $\beta$ du triangle au niveau du moteur est donné par :
+        D = \sqrt{dx^2 + dy^2}
 
-    $$ \cos(\beta) = \frac{L_1^2 + D^2 - L_2^2}{2 \cdot L_1 \cdot D} $$
+    .. math::
 
-    L'angle final du moteur dépend de la configuration du coude (signe de $\beta$) :
-    
-    $$ \theta_{motor} = \alpha + (\text{config} \times \beta) $$
+        \alpha = \arctan2(dy, dx)
 
-3.  **Calcul de l'angle du coude ($\theta_{elbow}$)** :
+2.  **Calcul de l'angle moteur** (:math:`\theta_{motor}`) :
+    L'angle interne :math:`\beta` du triangle au niveau du moteur est donné par :
+
+    .. math::
+
+        \cos(\beta) = \frac{L_1^2 + D^2 - L_2^2}{2 \cdot L_1 \cdot D}
+
+    L'angle final du moteur dépend de la configuration du coude (signe de :math:`\beta`) :
+
+    .. math::
+
+        \theta_{motor} = \alpha + (\text{config} \times \beta)
+
+3.  **Calcul de l'angle du coude** (:math:`\theta_{elbow}`) :
     Bien que passif en réalité, cet angle est calculé pour la simulation afin de fermer la chaîne cinématique.
 
-    $$ \cos(\gamma) = \frac{L_1^2 + L_2^2 - D^2}{2 \cdot L_1 \cdot L_2} $$
-    $$ \theta_{elbow} = \gamma $$
+    .. math::
+
+        \cos(\gamma) = \frac{L_1^2 + L_2^2 - D^2}{2 \cdot L_1 \cdot L_2}
+
+    .. math::
+
+        \theta_{elbow} = \gamma
 
 Script de Contrôle (Python)
 ---------------------------

@@ -27,7 +27,9 @@ extensions = ["sphinx.ext.graphviz",
 
     "myst_parser",
 
-    "sphinx_design",]
+    "sphinx_design",
+    
+    'sphinx.ext.mathjax',]
 
 myst_enable_extensions = ["colon_fence"]
 
