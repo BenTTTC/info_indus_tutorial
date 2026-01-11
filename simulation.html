@@ -53,15 +53,14 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pantographe en simulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#comment-bien-exporter-les-pieces-du-creo">Comment bien exporter les pièces du Créo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#source-des-fichiers">Source des fichiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Comment bien exporter les pièces du Créo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comment-bien-exporter-les-pieces-du-creo">Comment bien exporter les pièces du Créo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comment-faire-l-urdf">Comment faire l’URDF</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#structure-de-l-arbre">Structure de l’arbre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#la-contrainte-de-la-boucle-fermee-5-barres">La contrainte de la boucle fermée (5 barres)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import-des-fichiers-3d-dans-l-urdf">Import des fichiers 3D dans l’URDF</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#code-urdf-complet">Code URDF complet</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">Comment faire l’URDF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comment-ecrire-le-code-de-controle-des-moteurs">Comment écrire le code de contrôle des moteurs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#astuces-des-2-moteurs">Astuces des 2 moteurs</a></li>
 </ul>
@@ -98,19 +97,14 @@
              
   <section id="pantographe-en-simulation">
 <h1>Pantographe en simulation<a class="headerlink" href="#pantographe-en-simulation" title="Link to this heading"></a></h1>
-<p>Tout ce qui concerne la simulation du robot pantographe.</p>
-<section id="comment-bien-exporter-les-pieces-du-creo">
-<h2>Comment bien exporter les pièces du Créo<a class="headerlink" href="#comment-bien-exporter-les-pieces-du-creo" title="Link to this heading"></a></h2>
-<p>Cette section détaille la procédure pour passer de la CAO (Conception Assistée par Ordinateur) à la simulation sous ROS2.</p>
-</section>
 <section id="source-des-fichiers">
 <h2>Source des fichiers<a class="headerlink" href="#source-des-fichiers" title="Link to this heading"></a></h2>
 <p>Le modèle 3D de base provient du cours de M. Yguel.
-Fichier source : <code class="docutils literal notranslate"><span class="pre">maquette-5-barres_asm.stp</span></code> (Format STEP).
-Lien : <a class="reference external" href="https://yguel.github.io/informatique_industrielle_avec_ROS2/p00_pentograph_pencil_holder_with_rpi_and_dynamixel/p50s03_urdf.html">Cours Informatique Industrielle</a></p>
+Fichier source : <code class="docutils literal notranslate"><span class="pre">maquette-5-barres_asm.stp</span></code> (Format STEP).</p>
+<p>Lien : <a class="reference external" href="https://yguel.github.io/informatique_industrielle_avec_ROS2/p00_pentograph_pencil_holder_with_rpi_and_dynamixel/p50s03_urdf.html">Cours Informatique Industrielle</a></p>
 </section>
-<section id="id1">
-<h2>Comment bien exporter les pièces du Créo<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="comment-bien-exporter-les-pieces-du-creo">
+<h2>Comment bien exporter les pièces du Créo<a class="headerlink" href="#comment-bien-exporter-les-pieces-du-creo" title="Link to this heading"></a></h2>
 <p>Pour que le robot s’articule correctement dans Rviz ou Gazebo, l’export des fichiers 3D doit suivre une méthodologie rigoureuse.</p>
 <ol class="arabic">
 <li><p><strong>Format de fichier</strong> : Bien que la source soit en STEP (.stp), les fichiers doivent être exportés en <strong>.STL</strong> pour être lisibles par l’URDF.</p></li>
@@ -136,23 +130,29 @@ Lien : <a class="reference external" href="https://yguel.github.io/informatique_
 <section id="comment-faire-l-urdf">
 <h2>Comment faire l’URDF<a class="headerlink" href="#comment-faire-l-urdf" title="Link to this heading"></a></h2>
 <p>L’URDF (Unified Robot Description Format) est un fichier XML qui décrit la structure cinématique du robot.</p>
-<section id="structure-de-l-arbre">
-<h3>Structure de l’arbre<a class="headerlink" href="#structure-de-l-arbre" title="Link to this heading"></a></h3>
-<p>Notre robot est un système à chaînes cinématiques fermées, mais décrit ici comme deux branches ouvertes partant de la base :</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt><strong>Base</strong></dt><dd><ul>
-<li><p>Joint Moteur Gauche -&gt; <strong>Bielle Gauche</strong> -&gt; Joint Coude Gauche -&gt; <strong>Bras Gauche</strong></p></li>
-<li><p>Joint Moteur Droit -&gt; <strong>Bielle Droite</strong> -&gt; Joint Coude Droit -&gt; <strong>Bras Droit</strong></p></li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
+<section id="la-contrainte-de-la-boucle-fermee-5-barres">
+<h3>La contrainte de la boucle fermée (5 barres)<a class="headerlink" href="#la-contrainte-de-la-boucle-fermee-5-barres" title="Link to this heading"></a></h3>
+<p>Notre robot pantographe est mécaniquement une <strong>boucle fermée</strong> (mécanisme 5 barres). Cependant, le format URDF impose une structure stricte en <strong>arbre</strong> (arborescence parent-enfant), où chaque pièce ne peut avoir qu’un seul parent.</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Il est <strong>impossible</strong> de définir une boucle fermée directement dans un fichier URDF. Si l’on essaie de relier le dernier maillon au premier, ROS ne pourra pas construire l’arbre cinématique.</p>
+</div>
+<p><strong>La Solution : 2 boucles ouvertes</strong></p>
+<p>Pour contourner ce problème, nous définissons le robot dans l’URDF comme <strong>deux bras indépendants</strong> (deux chaînes ouvertes) qui partent de la même base :</p>
+<ol class="arabic simple">
+<li><p><strong>Branche gauche :</strong> Base → Moteur G → Bielle G → Bras G</p></li>
+<li><p><strong>Branche droite :</strong> Base → Moteur D → Bielle D → Bras D</p></li>
+</ol>
+<p>Visuellement, les bras se touchent à la fin, mais informatiquement, ils sont séparés. C’est le simulateur ou le contrôleur qui assurera la cohérence physique.</p>
+</section>
+<section id="import-des-fichiers-3d-dans-l-urdf">
+<h3>Import des fichiers 3D dans l’URDF<a class="headerlink" href="#import-des-fichiers-3d-dans-l-urdf" title="Link to this heading"></a></h3>
+<p>L’URDF ne lit pas directement les fichiers <cite>.stp</cite>. Il faut utiliser les fichiers <cite>.stl</cite> exportés précédemment. On utilise la balise <code class="docutils literal notranslate"><span class="pre">&lt;mesh&gt;</span></code> à l’intérieur de <code class="docutils literal notranslate"><span class="pre">&lt;geometry&gt;</span></code>.</p>
+<p>La syntaxe est la suivante : <code class="docutils literal notranslate"><span class="pre">package://nom_du_dossier/chemin/fichier.stl</span></code>.</p>
 </section>
 <section id="code-urdf-complet">
 <h3>Code URDF complet<a class="headerlink" href="#code-urdf-complet" title="Link to this heading"></a></h3>
-<p>Voici le code utilisé pour décrire le pantographe. Notez l’utilisation de <code class="docutils literal notranslate"><span class="pre">scale=&quot;0.001</span> <span class="pre">0.001</span> <span class="pre">0.001&quot;</span></code> pour convertir les meshes (mm) en mètres.</p>
+<p>Voici le code utilisé pour décrire le pantographe. Notez l’utilisation de <code class="docutils literal notranslate"><span class="pre">scale=&quot;0.001</span> <span class="pre">0.001</span> <span class="pre">0.001&quot;</span></code> pour convertir les meshes (mm) en mètres lors de l’import.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;robot</span><span class="w"> </span><span class="na">xmlns:xacro=</span><span class="s">&quot;http://www.ros.org/wiki/xacro&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;five_bar_bot&quot;</span><span class="nt">&gt;</span>
 
@@ -271,10 +271,6 @@ Lien : <a class="reference external" href="https://yguel.github.io/informatique_
 </pre></div>
 </div>
 </section>
-</section>
-<section id="id2">
-<h2>Comment faire l’URDF<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p>Explications sur la structure de l’arbre URDF et les joints (joints).</p>
 </section>
 <section id="comment-ecrire-le-code-de-controle-des-moteurs">
 <h2>Comment écrire le code de contrôle des moteurs<a class="headerlink" href="#comment-ecrire-le-code-de-controle-des-moteurs" title="Link to this heading"></a></h2>
