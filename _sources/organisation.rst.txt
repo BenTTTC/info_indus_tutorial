@@ -15,9 +15,9 @@ Assurez-vous que votre projet respecte cette arborescence à la racine du paquet
     ├── package.xml
     ├── config/            # Vos fichiers .yaml
     ├── launch/            # Vos fichiers .launch.py
-    ├── description/
-    |    ├──urdf           # Votre fichier urdf
-    |    └──meshes         # Vos fichiers .stl                
+    ├── description/       # Contient tout le robot
+    │    ├── urdf/         # Votre fichier .urdf ou .xacro
+    │    └── meshes/       # Vos fichiers .stl
     └── scripts/           # Vos scripts Python (ex: five_bar.py)
 
 Installation des fichiers
@@ -30,8 +30,9 @@ Ouvrez ``CMakeLists.txt`` et vérifiez la section ``install`` :
 .. code-block:: cmake
 
    # 1. Installation des dossiers de configuration et de description
+   # Notez que l'on installe le dossier parent "description"
    install(
-     DIRECTORY config launch urdf meshes
+     DIRECTORY config launch description
      DESTINATION share/${PROJECT_NAME}
    )
 
@@ -44,7 +45,8 @@ Ouvrez ``CMakeLists.txt`` et vérifiez la section ``install`` :
 .. warning:: **Attention aux noms des dossiers !**
    
    Dans la commande ``install(DIRECTORY ...)``, les noms doivent correspondre exactement à vos dossiers.
-   * Si votre dossier s'appelle ``urdf``, écrivez ``urdf``.
+
    * Si votre dossier s'appelle ``description``, écrivez ``description``.
+   * Si vous n'avez pas de dossier description mais directement ``urdf`` à la racine, adaptez la commande.
    
    De même pour le script Python : vérifiez que le nom du fichier dans ``PROGRAMS`` (ex: ``scripts/five_bar.py``) est bien le bon.

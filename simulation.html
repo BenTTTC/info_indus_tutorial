@@ -171,10 +171,12 @@ Bien que passif en réalité, cet angle est calculé pour la simulation afin de 
 </section>
 <section id="script-de-controle-python">
 <h2>Script de Contrôle (Python)<a class="headerlink" href="#script-de-controle-python" title="Link to this heading"></a></h2>
-<p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
-* Une interpolation linéaire pour lisser les mouvements.
-* Des vérifications de sécurité (limites angulaires et portée maximale).
-* La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).</p>
+<p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :</p>
+<ul class="simple">
+<li><p>Une interpolation linéaire pour lisser les mouvements.</p></li>
+<li><p>Des vérifications de sécurité (limites angulaires et portée maximale).</p></li>
+<li><p>La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).</p></li>
+</ul>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">scripts/five_bar_safe.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span> <span class="c1">#!/usr/bin/env python3</span>

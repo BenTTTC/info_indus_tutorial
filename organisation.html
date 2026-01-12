@@ -99,9 +99,9 @@
 ├── package.xml
 ├── config/            # Vos fichiers .yaml
 ├── launch/            # Vos fichiers .launch.py
-├── description/
-|    ├──urdf           # Votre fichier urdf
-|    └──meshes         # Vos fichiers .stl
+├── description/       # Contient tout le robot
+│    ├── urdf/         # Votre fichier .urdf ou .xacro
+│    └── meshes/       # Vos fichiers .stl
 └── scripts/           # Vos scripts Python (ex: five_bar.py)
 </pre></div>
 </div>
@@ -111,8 +111,9 @@
 <p>Pour que ROS trouve votre robot et vos configurations, le fichier <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> doit contenir les règles d’installation suivantes.</p>
 <p>Ouvrez <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> et vérifiez la section <code class="docutils literal notranslate"><span class="pre">install</span></code> :</p>
 <div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># 1. Installation des dossiers de configuration et de description</span>
+<span class="c"># Notez que l&#39;on installe le dossier parent &quot;description&quot;</span>
 <span class="nb">install</span><span class="p">(</span>
-<span class="w">  </span><span class="s">DIRECTORY</span><span class="w"> </span><span class="s">config</span><span class="w"> </span><span class="s">launch</span><span class="w"> </span><span class="s">urdf</span><span class="w"> </span><span class="s">meshes</span>
+<span class="w">  </span><span class="s">DIRECTORY</span><span class="w"> </span><span class="s">config</span><span class="w"> </span><span class="s">launch</span><span class="w"> </span><span class="s">description</span>
 <span class="w">  </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">share/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
 <span class="p">)</span>
 
@@ -126,9 +127,11 @@
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><strong>Attention aux noms des dossiers !</strong></p>
-<p>Dans la commande <code class="docutils literal notranslate"><span class="pre">install(DIRECTORY</span> <span class="pre">...)</span></code>, les noms doivent correspondre exactement à vos dossiers.
-* Si votre dossier s’appelle <code class="docutils literal notranslate"><span class="pre">urdf</span></code>, écrivez <code class="docutils literal notranslate"><span class="pre">urdf</span></code>.
-* Si votre dossier s’appelle <code class="docutils literal notranslate"><span class="pre">description</span></code>, écrivez <code class="docutils literal notranslate"><span class="pre">description</span></code>.</p>
+<p>Dans la commande <code class="docutils literal notranslate"><span class="pre">install(DIRECTORY</span> <span class="pre">...)</span></code>, les noms doivent correspondre exactement à vos dossiers.</p>
+<ul class="simple">
+<li><p>Si votre dossier s’appelle <code class="docutils literal notranslate"><span class="pre">description</span></code>, écrivez <code class="docutils literal notranslate"><span class="pre">description</span></code>.</p></li>
+<li><p>Si vous n’avez pas de dossier description mais directement <code class="docutils literal notranslate"><span class="pre">urdf</span></code> à la racine, adaptez la commande.</p></li>
+</ul>
 <p>De même pour le script Python : vérifiez que le nom du fichier dans <code class="docutils literal notranslate"><span class="pre">PROGRAMS</span></code> (ex: <code class="docutils literal notranslate"><span class="pre">scripts/five_bar.py</span></code>) est bien le bon.</p>
 </div>
 </section>
