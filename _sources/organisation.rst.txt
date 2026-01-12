@@ -1,5 +1,5 @@
-Organisation et Installation (ament_cmake)
-------------------------------------------
+Organisation
+------------
 
 Ce projet utilise le système de compilation **ament_cmake**. Contrairement aux projets purement Python, nous devons déclarer explicitement dans le fichier ``CMakeLists.txt`` quels dossiers doivent être installés pour être visibles par ROS 2.
 
