@@ -8,10 +8,9 @@ Schéma Cinématique
     Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres géométriques et les repères définis pour la modélisation :
 
 .. image:: images/schema_cinematique.png
-
-:width: 80%
-:align: center
-:alt: Schéma cinématique du robot Five Bar
+   :width: 80%
+   :align: center
+   :alt: Schéma cinématique du robot Five Bar
 
 Paramètres du Code
 ~~~~~~~~~~~~~~~~~~
