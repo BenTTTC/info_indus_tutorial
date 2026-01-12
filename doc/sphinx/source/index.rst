@@ -6,6 +6,7 @@ Bienvenue sur la documentation du Projet ROS
    :caption: Table des matières:
 
    installations
+   organisation
    urdf
    simulation
    control
