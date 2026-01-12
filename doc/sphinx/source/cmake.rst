@@ -1,31 +1,9 @@
-Organisation des fichiers
-===============================
-
-Ce projet utilise le système de compilation **ament_cmake**. Contrairement aux projets purement Python, nous devons déclarer explicitement dans le fichier ``CMakeLists.txt`` quels dossiers doivent être installés pour être visibles par ROS 2.
-
-Structure des dossiers
---------------------------
-
-Assurez-vous que votre projet respecte cette arborescence à la racine du paquet :
-
-.. code-block:: text
-
-    five_bar_bot/
-    ├── CMakeLists.txt     # <--- Gère l'installation
-    ├── package.xml
-    ├── config/            # Vos fichiers .yaml
-    ├── launch/            # Vos fichiers .launch.py
-    ├── description/       # Contient tout le robot
-    │    ├── urdf/         # Votre fichier .urdf ou .xacro
-    │    └── meshes/       # Vos fichiers .stl
-    └── scripts/           # Vos scripts Python (ex: five_bar.py)
-
-Installation des fichiers
---------------------------------
+Création du fichier CMakeLists.txt
+=========================================
 
 Pour que ROS trouve votre robot et vos configurations, le fichier ``CMakeLists.txt`` doit contenir les règles d'installation suivantes.
 
-Créez le CMakeLists.txt avec la commande suivante et copier coller y le code.
+Créez le fichier ``CMakeLists.txt`` avec la commande suivante et copiez-y le code.
 
 .. code-block:: bash
     
