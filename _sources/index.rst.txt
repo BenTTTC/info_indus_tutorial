@@ -10,5 +10,6 @@ Bienvenue sur la documentation du Projet ROS
    urdf
    simulation
    control
+   cmake.rst
    compilation
    contribuer

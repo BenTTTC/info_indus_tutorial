@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Organisation des fichiers &mdash; info_indus_tutorial  documentation</title>
+  <title>Création du fichier CMakeLists.txt &mdash; info_indus_tutorial  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
@@ -26,8 +26,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Création de l’URDF" href="urdf.html" />
-    <link rel="prev" title="Installations" href="installations.html" /> 
+    <link rel="next" title="Compilation et Lancement" href="compilation.html" />
+    <link rel="prev" title="Validation du Modèle : Tests Unitaires" href="control.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,15 +52,11 @@
               <p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Organisation des fichiers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#structure-des-dossiers">Structure des dossiers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation-des-fichiers">Installation des fichiers</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="organisation.html">Organisation des fichiers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="urdf.html">Création de l’URDF</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simulation.html">Modèle Géométrique</a></li>
 <li class="toctree-l1"><a class="reference internal" href="control.html">Validation du Modèle : Tests Unitaires</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cmake.html">Création du fichier CMakeLists.txt</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Création du fichier CMakeLists.txt</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compilation.html">Compilation et Lancement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contribuer.html">Documentation du projet</a></li>
 </ul>
@@ -79,9 +75,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Organisation des fichiers</li>
+      <li class="breadcrumb-item active">Création du fichier CMakeLists.txt</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/organisation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cmake.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -89,28 +85,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="organisation-des-fichiers">
-<h1>Organisation des fichiers<a class="headerlink" href="#organisation-des-fichiers" title="Link to this heading"></a></h1>
-<p>Ce projet utilise le système de compilation <strong>ament_cmake</strong>. Contrairement aux projets purement Python, nous devons déclarer explicitement dans le fichier <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> quels dossiers doivent être installés pour être visibles par ROS 2.</p>
-<section id="structure-des-dossiers">
-<h2>Structure des dossiers<a class="headerlink" href="#structure-des-dossiers" title="Link to this heading"></a></h2>
-<p>Assurez-vous que votre projet respecte cette arborescence à la racine du paquet :</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>five_bar_bot/
-├── CMakeLists.txt     # &lt;--- Gère l&#39;installation
-├── package.xml
-├── config/            # Vos fichiers .yaml
-├── launch/            # Vos fichiers .launch.py
-├── description/       # Contient tout le robot
-│    ├── urdf/         # Votre fichier .urdf ou .xacro
-│    └── meshes/       # Vos fichiers .stl
-└── scripts/           # Vos scripts Python (ex: five_bar.py)
-</pre></div>
-</div>
-</section>
-<section id="installation-des-fichiers">
-<h2>Installation des fichiers<a class="headerlink" href="#installation-des-fichiers" title="Link to this heading"></a></h2>
+  <section id="creation-du-fichier-cmakelists-txt">
+<h1>Création du fichier CMakeLists.txt<a class="headerlink" href="#creation-du-fichier-cmakelists-txt" title="Link to this heading"></a></h1>
 <p>Pour que ROS trouve votre robot et vos configurations, le fichier <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> doit contenir les règles d’installation suivantes.</p>
-<p>Créez le CMakeLists.txt avec la commande suivante et copier coller y le code.</p>
+<p>Créez le fichier <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> avec la commande suivante et copiez-y le code.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nano<span class="w"> </span>CMakeLists.txt
 </pre></div>
 </div>
@@ -157,14 +135,13 @@
 <p>De même pour le script Python : vérifiez que le nom du fichier dans <code class="docutils literal notranslate"><span class="pre">PROGRAMS</span></code> (ex: <code class="docutils literal notranslate"><span class="pre">scripts/five_bar_safe.py</span></code>) est bien le bon.</p>
 </div>
 </section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installations.html" class="btn btn-neutral float-left" title="Installations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="urdf.html" class="btn btn-neutral float-right" title="Création de l’URDF" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="control.html" class="btn btn-neutral float-left" title="Validation du Modèle : Tests Unitaires" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="compilation.html" class="btn btn-neutral float-right" title="Compilation et Lancement" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
