@@ -65,4 +65,4 @@ Ouvrez ``CMakeLists.txt`` et vérifiez la section ``install`` :
    * Si votre dossier s'appelle ``description``, écrivez ``description``.
    * Si vous n'avez pas de dossier description mais directement ``urdf`` à la racine, adaptez la commande.
    
-   De même pour le script Python : vérifiez que le nom du fichier dans ``PROGRAMS`` (ex: ``scripts/five_bar.py``) est bien le bon.
+   De même pour le script Python : vérifiez que le nom du fichier dans ``PROGRAMS`` (ex: ``scripts/five_bar_safe.py``) est bien le bon.
