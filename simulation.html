@@ -53,6 +53,7 @@
               <p class="caption" role="heading"><span class="caption-text">Table des matières:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installations.html">Installations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="organisation.html">Organisation et Installation (ament_cmake)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="urdf.html">Création de l’URDF</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Modèle Géométrique</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#schema-cinematique">Schéma Cinématique</a><ul>
@@ -94,11 +95,12 @@
              
   <section id="modele-geometrique">
 <h1>Modèle Géométrique<a class="headerlink" href="#modele-geometrique" title="Link to this heading"></a></h1>
-<p>Pour piloter le robot, nous devons traduire une position cartésienne cible $(X, Y)$ en angles moteurs. C’est le rôle du <strong>Modèle Géométrique Inverse (MGI)</strong>.</p>
+<p>Pour piloter le robot, nous devons traduire une position cartésienne cible (X, Y) en angles moteurs. C’est le rôle du <strong>Modèle Géométrique Inverse (MGI)</strong>.</p>
 <section id="schema-cinematique">
 <h2>Schéma Cinématique<a class="headerlink" href="#schema-cinematique" title="Link to this heading"></a></h2>
 <blockquote>
 <div><p>Le robot est une structure parallèle de type “Five-Bar”. Voici les paramètres géométriques et les repères définis pour la modélisation :</p>
+</div></blockquote>
 <img alt="_images/schema_cinematique.png" src="_images/schema_cinematique.png" />
 <dl class="field-list simple">
 <dt class="field-odd">width<span class="colon">:</span></dt>
@@ -111,7 +113,6 @@
 <dd class="field-odd"><p>Schéma cinématique du robot Five Bar</p>
 </dd>
 </dl>
-</div></blockquote>
 <section id="parametres-du-code">
 <h3>Paramètres du Code<a class="headerlink" href="#parametres-du-code" title="Link to this heading"></a></h3>
 <p>Le script de contrôle Python intègre les dimensions exactes mesurées sur la CAO  :</p>
@@ -170,12 +171,10 @@ Bien que passif en réalité, cet angle est calculé pour la simulation afin de 
 </section>
 <section id="script-de-controle-python">
 <h2>Script de Contrôle (Python)<a class="headerlink" href="#script-de-controle-python" title="Link to this heading"></a></h2>
-<blockquote>
-<div><p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
+<p>Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
 * Une interpolation linéaire pour lisser les mouvements.
 * Des vérifications de sécurité (limites angulaires et portée maximale).
 * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).</p>
-</div></blockquote>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">scripts/five_bar_safe.py</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span> <span class="c1">#!/usr/bin/env python3</span>

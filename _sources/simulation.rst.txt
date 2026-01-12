@@ -1,16 +1,16 @@
 Modèle Géométrique
 ==================
 
-Pour piloter le robot, nous devons traduire une position cartésienne cible $(X, Y)$ en angles moteurs. C'est le rôle du **Modèle Géométrique Inverse (MGI)**.
+Pour piloter le robot, nous devons traduire une position cartésienne cible (X, Y) en angles moteurs. C'est le rôle du **Modèle Géométrique Inverse (MGI)**.
 
 Schéma Cinématique
 ------------------
     Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres géométriques et les repères définis pour la modélisation :
 
-    .. image:: images/schema_cinematique.png
-    :width: 80%
-    :align: center
-    :alt: Schéma cinématique du robot Five Bar
+.. image:: images/schema_cinematique.png
+:width: 80%
+:align: center
+:alt: Schéma cinématique du robot Five Bar
 
 Paramètres du Code
 ~~~~~~~~~~~~~~~~~~
@@ -72,10 +72,10 @@ Résolution Mathématique (MGI)
 Script de Contrôle (Python)
 ---------------------------
 
-    Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
-    * Une interpolation linéaire pour lisser les mouvements.
-    * Des vérifications de sécurité (limites angulaires et portée maximale).
-    * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).
+Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
+* Une interpolation linéaire pour lisser les mouvements.
+* Des vérifications de sécurité (limites angulaires et portée maximale).
+* La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).
 
 .. code-block:: python
    :caption: scripts/five_bar_safe.py
