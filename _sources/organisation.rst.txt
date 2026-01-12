@@ -28,19 +28,35 @@ Pour que ROS trouve votre robot et vos configurations, le fichier ``CMakeLists.t
 Ouvrez ``CMakeLists.txt`` et vérifiez la section ``install`` :
 
 .. code-block:: cmake
+    :caption: CMakeLists.txt
 
-   # 1. Installation des dossiers de configuration et de description
-   # Notez que l'on installe le dossier parent "description"
-   install(
-     DIRECTORY config launch description
-     DESTINATION share/${PROJECT_NAME}
-   )
+    cmake_minimum_required(VERSION 3.8)
+    project(five_bar_bot)
 
-   # 2. Installation des scripts Python (exécutables)
-   install(
-     PROGRAMS scripts/five_bar.py
-     DESTINATION lib/${PROJECT_NAME}
-   )
+    # Options de compilation standard
+    if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-Wall -Wextra -Wpedantic)
+    endif()
+
+    # 1. On trouve les dépendances
+    find_package(ament_cmake REQUIRED)
+    find_package(rclcpp REQUIRED)
+    find_package(hardware_interface REQUIRED)
+    find_package(pluginlib REQUIRED)
+    find_package(controller_manager REQUIRED)
+
+
+    install(
+    DIRECTORY config description launch
+    DESTINATION share/${PROJECT_NAME}
+    )
+    install(
+    PROGRAMS scripts/five_bar_safe.py
+    DESTINATION lib/${PROJECT_NAME}
+    )
+
+    # 3. Finalisation
+    ament_package()
 
 .. warning:: **Attention aux noms des dossiers !**
    

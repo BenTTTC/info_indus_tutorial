@@ -110,19 +110,37 @@
 <h2>Installation des fichiers<a class="headerlink" href="#installation-des-fichiers" title="Link to this heading"></a></h2>
 <p>Pour que ROS trouve votre robot et vos configurations, le fichier <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> doit contenir les règles d’installation suivantes.</p>
 <p>Ouvrez <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> et vérifiez la section <code class="docutils literal notranslate"><span class="pre">install</span></code> :</p>
-<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># 1. Installation des dossiers de configuration et de description</span>
-<span class="c"># Notez que l&#39;on installe le dossier parent &quot;description&quot;</span>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">CMakeLists.txt</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.8</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">five_bar_bot</span><span class="p">)</span>
+
+<span class="c"># Options de compilation standard</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_COMPILER_IS_GNUCXX</span><span class="w"> </span><span class="s">OR</span><span class="w"> </span><span class="s">CMAKE_CXX_COMPILER_ID</span><span class="w"> </span><span class="s">MATCHES</span><span class="w"> </span><span class="s2">&quot;Clang&quot;</span><span class="p">)</span>
+<span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-Wall</span><span class="w"> </span><span class="s">-Wextra</span><span class="w"> </span><span class="s">-Wpedantic</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># 1. On trouve les dépendances</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ament_cmake</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">rclcpp</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">hardware_interface</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">pluginlib</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">controller_manager</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+
 <span class="nb">install</span><span class="p">(</span>
-<span class="w">  </span><span class="s">DIRECTORY</span><span class="w"> </span><span class="s">config</span><span class="w"> </span><span class="s">launch</span><span class="w"> </span><span class="s">description</span>
-<span class="w">  </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">share/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+<span class="s">DIRECTORY</span><span class="w"> </span><span class="s">config</span><span class="w"> </span><span class="s">description</span><span class="w"> </span><span class="s">launch</span>
+<span class="s">DESTINATION</span><span class="w"> </span><span class="s">share/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
+<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span>
+<span class="s">PROGRAMS</span><span class="w"> </span><span class="s">scripts/five_bar_safe.py</span>
+<span class="s">DESTINATION</span><span class="w"> </span><span class="s">lib/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
 <span class="p">)</span>
 
-<span class="c"># 2. Installation des scripts Python (exécutables)</span>
-<span class="nb">install</span><span class="p">(</span>
-<span class="w">  </span><span class="s">PROGRAMS</span><span class="w"> </span><span class="s">scripts/five_bar.py</span>
-<span class="w">  </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s">lib/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span>
-<span class="p">)</span>
+<span class="c"># 3. Finalisation</span>
+<span class="nb">ament_package</span><span class="p">()</span>
 </pre></div>
+</div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
