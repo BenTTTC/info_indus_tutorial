@@ -8,6 +8,7 @@ Schéma Cinématique
     Le robot est une structure parallèle de type "Five-Bar". Voici les paramètres géométriques et les repères définis pour la modélisation :
 
 .. image:: images/schema_cinematique.png
+
 :width: 80%
 :align: center
 :alt: Schéma cinématique du robot Five Bar
@@ -73,6 +74,7 @@ Script de Contrôle (Python)
 ---------------------------
 
 Ce script ROS 2 implémente la logique ci-dessus. Il inclut également :
+
 * Une interpolation linéaire pour lisser les mouvements.
 * Des vérifications de sécurité (limites angulaires et portée maximale).
 * La publication des commandes pour les 4 joints (2 moteurs + 2 coudes simulés).
