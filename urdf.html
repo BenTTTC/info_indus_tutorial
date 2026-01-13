@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Création de l’URDF &mdash; info_indus_tutorial  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -138,7 +138,7 @@ Fichier source : <code class="docutils literal notranslate"><span class="pre">ma
 <p class="admonition-title">Error</p>
 <p>Il est <strong>impossible</strong> de définir une boucle fermée directement dans un fichier URDF. Si l’on essaie de relier le dernier maillon au premier, ROS ne pourra pas construire l’arbre cinématique.</p>
 </div>
-<p><strong>La Solution : 2 boucles ouvertes</strong></p>
+<p><strong>La Solution : 2 chaînes ouvertes</strong></p>
 <p>Pour contourner ce problème, nous définissons le robot dans l’URDF comme <strong>deux bras indépendants</strong> (deux chaînes ouvertes) qui partent de la même base :</p>
 <ol class="arabic simple">
 <li><p><strong>Branche gauche :</strong> Base → Moteur G → Bielle G → Bras G</p></li>
