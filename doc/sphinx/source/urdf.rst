@@ -43,7 +43,7 @@ Notre robot pantographe est mécaniquement une **boucle fermée** (mécanisme 5 
 .. error::
    Il est **impossible** de définir une boucle fermée directement dans un fichier URDF. Si l'on essaie de relier le dernier maillon au premier, ROS ne pourra pas construire l'arbre cinématique.
 
-**La Solution : 2 boucles ouvertes**
+**La Solution : 2 chaînes ouvertes**
 
 Pour contourner ce problème, nous définissons le robot dans l'URDF comme **deux bras indépendants** (deux chaînes ouvertes) qui partent de la même base :
 
